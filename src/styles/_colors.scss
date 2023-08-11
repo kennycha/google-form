@@ -1,9 +1,11 @@
-$background-white: #ffffff;
-$background-purple-hard: rgb(103, 58, 183);
-$background-purple-soft: #f0ebf8;
+$background-white: rgba(255, 255, 255, 1);
+$background-purple-hard: rgba(103, 58, 183, 1);
+$background-purple-soft: rgba(240, 235, 248, 1);
+$background-blue: rgba(65, 133, 244, 1);
+$background-gray: rgba(0, 0, 0, 0.12);
 
-$font-black: rgb(32, 33, 36);
-$font-gray-hard: rgb(60, 64, 67);
-$font-gray-soft: rgb(112, 117, 122);
-$font-blue: rgb(26, 115, 232);
-$font-purple: rgb(103, 58, 183);
+$font-black: rgba(32, 33, 36, 1);
+$font-gray-hard: rgba(60, 64, 67, 1);
+$font-gray-soft: rgba(112, 117, 122, 1);
+$font-blue: rgba(26, 115, 232, 1);
+$font-purple: rgba(103, 58, 183, 1);

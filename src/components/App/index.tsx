@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./index.module.scss";
 import Header from "../Header";
+import Form from "../form/Form";
 
 const cx = classNames.bind(styles);
 
@@ -10,7 +11,9 @@ const App = () => {
       <div className={cx("header")}>
         <Header />
       </div>
-      <div className={cx("form")}>{/* <Form /> */}</div>
+      <div className={cx("form")}>
+        <Form />
+      </div>
     </div>
   );
 };
