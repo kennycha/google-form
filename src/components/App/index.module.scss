@@ -1,0 +1,13 @@
+@import "../../styles/utils.scss";
+
+.container {
+  background-color: green;
+
+  @include tablet {
+    background-color: yellow;
+  }
+
+  @include desktop {
+    background-color: red;
+  }
+}
