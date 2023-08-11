@@ -2,6 +2,12 @@
 $device-tablet: 640px;
 $device-desktop: 951px;
 
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @mixin tablet {
   @media screen and (min-width: $device-tablet) {
     @content;

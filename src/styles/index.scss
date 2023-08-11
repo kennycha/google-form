@@ -1,0 +1,11 @@
+@import "./utils.scss";
+@import "./reset.css";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: $min-screen-width;
+  background-color: $background-purple-soft;
+}

@@ -1,0 +1,100 @@
+@import "../../styles/utils.scss";
+
+.container {
+  display: grid;
+  grid-template-areas:
+    "logo menus"
+    "title title"
+    "tabs tabs";
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 60px 1fr 36px;
+  grid-row-gap: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $background-white;
+  padding: 6px 10px 0;
+
+  @include tablet {
+    grid-template-areas:
+      "logo title menus"
+      "tabs tabs tabs";
+    grid-template-columns: 60px 1fr 60px;
+    grid-template-rows: 60px 36px;
+    grid-row-gap: 8px;
+  }
+}
+
+.logoWrapper {
+  @include flex-center;
+  grid-area: logo;
+  width: 56px;
+  height: 56px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+}
+
+.menus {
+  grid-area: menus;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.preview {
+  cursor: pointer;
+  height: fit-content;
+}
+
+.title {
+  grid-area: title;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 400;
+  color: $font-black;
+  padding: 8px 14px 0;
+}
+
+.tabs {
+  grid-area: tabs;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 2px;
+
+  @include tablet {
+    justify-content: center;
+  }
+}
+
+.tab {
+  @include flex-center;
+  position: relative;
+  padding: 0 12px;
+}
+
+.tabText {
+  font-size: 14px;
+  font-weight: 500;
+  color: $font-gray-hard;
+
+  .current > & {
+    color: $font-purple;
+  }
+}
+
+.tabBottom {
+  position: absolute;
+  bottom: 0;
+  width: 44px;
+  height: 3px;
+  background-color: $background-purple-hard;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+
+  @include tablet {
+    bottom: 3px;
+  }
+}
