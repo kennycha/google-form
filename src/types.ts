@@ -15,6 +15,7 @@ export type IconTypes =
   | "dropdown"
   | "eye"
   | "image"
+  | "more"
   | "section"
   | "short"
   | "text"
@@ -32,6 +33,7 @@ export enum IconTopEnum {
   dropdown = 52,
   eye = 1690,
   image = 4572,
+  more = 0,
   section = 3350,
   short = 2596,
   text = 4650,

@@ -86,7 +86,7 @@
   width: calc(100% - 48px);
   transform: translateX(24px);
   height: 1px;
-  background-color: $background-gray;
+  background-color: $background-gray-soft;
 
   &.focused {
     height: 2px;

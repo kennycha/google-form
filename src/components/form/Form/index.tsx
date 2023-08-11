@@ -3,6 +3,7 @@ import ActionBar from "../ActionBar";
 import FormMetaSection from "../FormMetaSection";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
+import QuestionCard from "../QuestionCard";
 
 const cx = classNames.bind(styles);
 
@@ -37,7 +38,9 @@ const Form = () => {
       <div className={cx("meta")}>
         <FormMetaSection />
       </div>
-      <ol className={cx("questions")}></ol>
+      <ol className={cx("questions")}>
+        <QuestionCard />
+      </ol>
       <div className={cx("actionBar")} style={isDesktopSize ? { top: actionBarTop } : {}}>
         <ActionBar />
       </div>

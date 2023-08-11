@@ -9,9 +9,13 @@
 }
 
 .meta {
+  margin-bottom: 12px;
 }
 
 .questions {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
 }
 
 .actionBar {
