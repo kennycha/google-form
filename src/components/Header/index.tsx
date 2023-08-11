@@ -1,5 +1,4 @@
 import Logo from "../../resources/logo.svg";
-import { IconTopEnum } from "../../types";
 import Icon from "../common/Icon";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -16,7 +15,7 @@ const Header = () => {
       </div>
       <div className={cx("menus")}>
         <button className={cx("preview")}>
-          <Icon top={IconTopEnum.eye} />
+          <Icon type="eye" />
         </button>
       </div>
       <div className={cx("title")}>{formTitle}</div>

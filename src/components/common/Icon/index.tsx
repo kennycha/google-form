@@ -1,18 +1,19 @@
-import { IconTopEnum } from "../../../types";
+import { IconSizeTypes, IconTopEnum, IconTypes } from "../../../types";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
 interface IconProps {
-  top: IconTopEnum;
+  type: IconTypes;
+  size?: IconSizeTypes;
 }
 
-const Icon = ({ top }: IconProps) => {
+const Icon = ({ type, size = "medium" }: IconProps) => {
   return (
-    <span className={cx("container")}>
+    <span className={cx("container", size)}>
       <div className={cx("inner")}>
-        <div className={cx("icon")} style={{ top: `-${top}px` }}></div>
+        <div className={cx("icon")} style={{ top: `-${IconTopEnum[type]}px` }}></div>
       </div>
     </span>
   );

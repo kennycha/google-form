@@ -1,6 +1,25 @@
+export type IconSizeTypes = "small" | "medium";
+
 export type FormStateTypes = "edit" | "view";
 
 export type QuestionTypes = "short" | "descriptive" | "choice" | "checkbox" | "dropdown";
+
+export type IconTypes =
+  | "add"
+  | "checkbox"
+  | "choice"
+  | "copy"
+  | "delete"
+  | "descriptive"
+  | "drag"
+  | "dropdown"
+  | "eye"
+  | "image"
+  | "section"
+  | "short"
+  | "text"
+  | "upload"
+  | "video";
 
 export enum IconTopEnum {
   add = 9140,
@@ -12,5 +31,10 @@ export enum IconTopEnum {
   drag = 6158,
   dropdown = 52,
   eye = 1690,
+  image = 4572,
+  section = 3350,
   short = 2596,
+  text = 4650,
+  upload = 1222,
+  video = 6418,
 }

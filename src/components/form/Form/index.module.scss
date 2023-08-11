@@ -1,5 +1,36 @@
+@import "../../../styles/utils.scss";
+
 .container {
+  position: relative;
   width: 100%;
+  height: 100%;
   max-width: 768px;
   margin: 0 auto;
+}
+
+.meta {
+}
+
+.questions {
+}
+
+.actionBar {
+  width: 100%;
+  height: 60px;
+  position: fixed;
+  top: auto;
+  left: 0;
+  right: auto;
+  bottom: 0;
+  transition: none;
+
+  @include desktop {
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    left: auto;
+    right: -62px;
+    bottom: auto;
+    transition: top 0.3s ease-in-out;
+  }
 }

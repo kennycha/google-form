@@ -2,9 +2,17 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 48px;
-  height: 48px;
   position: relative;
+
+  &.small {
+    width: 36px;
+    height: 36px;
+  }
+
+  &.medium {
+    width: 48px;
+    height: 48px;
+  }
 }
 
 .inner {
