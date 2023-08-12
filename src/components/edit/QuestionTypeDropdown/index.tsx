@@ -1,8 +1,9 @@
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useCallback, useMemo, useRef, useState } from "react";
 import { IconTypes } from "../../../types";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import Icon from "../../common/Icon";
+import { useOutsideClick } from "../../../hooks";
 
 const cx = classNames.bind(styles);
 
@@ -41,6 +42,7 @@ interface QuestionTypeDropdownProps {
 const QuestionTypeDropdown = ({ onSelectOption }: QuestionTypeDropdownProps) => {
   const [currentOption, setCurrentOption] = useState(OPTIONS[0]);
   const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const optionsTop = useMemo(() => {
     const currentOptionIdx = OPTIONS.findIndex((option) => option.value === currentOption.value);
@@ -64,8 +66,13 @@ const QuestionTypeDropdown = ({ onSelectOption }: QuestionTypeDropdownProps) => 
     onSelectOption(value);
   };
 
+  const onOutsideClick = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+  useOutsideClick(containerRef, onOutsideClick);
+
   return (
-    <div className={cx("container")}>
+    <div className={cx("container")} ref={containerRef}>
       <button className={cx("header")} onClick={onHeaderClick}>
         <Icon type={currentOption.icon} size="small" />
         <p className={cx("headerText")}>{currentOption.text}</p>
