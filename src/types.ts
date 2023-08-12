@@ -1,4 +1,4 @@
-export type IconSizeTypes = "small" | "medium";
+export type IconSizeTypes = "small" | "medium" | "large";
 
 export type FormStateTypes = "edit" | "view";
 

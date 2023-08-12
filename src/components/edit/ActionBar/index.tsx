@@ -14,9 +14,9 @@ const ActionBar = () => {
   useLayoutEffect(() => {
     const onWindowResize = () => {
       if (window.innerWidth >= 951) {
-        setIconSize("small");
-      } else {
         setIconSize("medium");
+      } else {
+        setIconSize("large");
       }
     };
 

@@ -2,6 +2,7 @@ import { PropsWithChildren } from "react";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import Icon from "../../common/Icon";
+import QuestionTypeDropdown from "../QuestionTypeDropdown";
 
 const cx = classNames.bind(styles);
 
@@ -24,10 +25,13 @@ const QuestionWrapper = ({ current, children }: PropsWithChildren<QuestionWrappe
       <div className={cx("meta")}>
         <div className={cx("title")}></div>
         {/* 아래 요소는 구현 외 요소라 기능은 구현하지 않습니다.  */}
-        <div className={cx("imageButton")}>
+        <button className={cx("imageButton")}>
           <Icon type="image" />
+        </button>
+        <div className={cx("type")}>
+          {/* @TODO 콜백 변경 */}
+          <QuestionTypeDropdown onSelectOption={() => {}} />
         </div>
-        <div className={cx("type")}>{/* @TODO Dropdown */}</div>
       </div>
       <div className={cx("detail")}>{children}</div>
       <div className={cx("options")}>
@@ -51,9 +55,9 @@ const QuestionWrapper = ({ current, children }: PropsWithChildren<QuestionWrappe
             </div>
           </div>
           {/* 아래 요소는 구현 외 요소라 기능은 구현하지 않습니다.  */}
-          <div className={cx("moreButton")}>
+          <button className={cx("moreButton")}>
             <Icon type="more" />
-          </div>
+          </button>
         </div>
       </div>
     </div>

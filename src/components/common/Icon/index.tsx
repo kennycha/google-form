@@ -9,7 +9,7 @@ interface IconProps {
   size?: IconSizeTypes;
 }
 
-const Icon = ({ type, size = "medium" }: IconProps) => {
+const Icon = ({ type, size = "large" }: IconProps) => {
   return (
     <span className={cx("container", size)}>
       <div className={cx("inner")}>
