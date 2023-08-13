@@ -7,7 +7,7 @@ import ShortQuestionDetail from "./ShortQuestionDetail";
 
 interface QuestionDetailProps {
   type: QuestionTypes;
-  options?: { value: string; text: string }[];
+  options?: { id: string; value: string }[];
 }
 
 const QuestionDetail = ({ type, options = [] }: QuestionDetailProps) => {

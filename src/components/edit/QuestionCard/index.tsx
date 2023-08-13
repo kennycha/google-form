@@ -6,6 +6,14 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
+const DUMMY_OPTIONS = [
+  { id: "1", value: "옵션 1" },
+  { id: "2", value: "옵션 2" },
+  { id: "3", value: "옵션 2" },
+  { id: "4", value: "옵션 4" },
+  { id: "5", value: "옵션 4" },
+];
+
 interface QuestionCardProps {
   id: string;
 }
@@ -21,7 +29,7 @@ const QuestionCard = ({ id }: QuestionCardProps) => {
     <QuestionWrapper current={current}>
       <div className={cx("detail")}>
         {/* @TODO 로직 작업 시 변경 */}
-        <QuestionDetail type={types[id.length]} />
+        <QuestionDetail type={types[id.length]} options={DUMMY_OPTIONS} />
       </div>
     </QuestionWrapper>
   );

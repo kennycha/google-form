@@ -1,3 +1,5 @@
+export type Nullable<T> = T | null;
+
 export type IconSizeTypes = "small" | "medium" | "large";
 
 export type FormStateTypes = "edit" | "view";
@@ -6,6 +8,7 @@ export type QuestionTypes = "short" | "descriptive" | "choice" | "checkbox" | "d
 
 export type IconTypes =
   | "add"
+  | "alert"
   | "checkbox"
   | "choice"
   | "copy"
@@ -24,6 +27,7 @@ export type IconTypes =
 
 export enum IconTopEnum {
   add = 9140,
+  alert = 9088,
   checkbox = 4520,
   choice = 6908,
   copy = 1378,

@@ -10,7 +10,7 @@ const FormMetaSection = () => {
   const [title, setTitle] = useState("제목 없는 설문지");
   const [description, setDescription] = useState("");
   // @TODO store 내 현재 작업 중인 section 비교로 관리
-  const current = true;
+  const current = false;
   const [isTitleFocused, setIsTitleFocused] = useState(false);
   const [isDescriptionFocused, setIsDescriptionFocused] = useState(false);
 
@@ -47,7 +47,7 @@ const FormMetaSection = () => {
           >
             {title}
           </div>
-          <div className={cx("underline", { focused: isTitleFocused })} />
+          {current && <div className={cx("underline", { focused: isTitleFocused })} />}
         </div>
         <div className={cx("inputDivWrapper")}>
           <div
@@ -60,7 +60,7 @@ const FormMetaSection = () => {
           >
             {description}
           </div>
-          <div className={cx("underline", { focused: isDescriptionFocused })} />
+          {current && <div className={cx("underline", { focused: isDescriptionFocused })} />}
         </div>
       </div>
     </section>

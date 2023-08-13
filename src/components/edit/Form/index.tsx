@@ -39,7 +39,9 @@ const Form = () => {
         <FormMetaSection />
       </div>
       <ol className={cx("questions")}>
-        <QuestionCard />
+        <QuestionCard id="aa" />
+        <QuestionCard id="aaa" />
+        <QuestionCard id="aaaa" />
       </ol>
       <div className={cx("actionBar")} style={isDesktopSize ? { top: actionBarTop } : {}}>
         <ActionBar />

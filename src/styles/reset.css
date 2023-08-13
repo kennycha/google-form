@@ -142,6 +142,7 @@ input {
   margin: 0;
   padding: 0;
   background-color: inherit;
+  outline: none;
 }
 button {
   border: none;

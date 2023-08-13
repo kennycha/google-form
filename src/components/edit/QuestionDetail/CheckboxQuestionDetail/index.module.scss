@@ -1,0 +1,118 @@
+@import "../../../../styles/utils.scss";
+
+.container {
+  width: 100%;
+}
+
+.options {
+  width: 100%;
+}
+
+.option {
+  position: relative;
+  display: grid;
+  grid-template-columns: 20px 1fr 48px;
+  column-gap: 10px;
+  width: 100%;
+  align-items: center;
+}
+
+.box {
+  width: 20px;
+  height: 20px;
+  border: 2px solid $border-gray-transparent;
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+.optionContent {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.optionContentInner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.optionText {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: $font-black;
+}
+
+.uploadButton {
+  opacity: 0;
+  cursor: default;
+
+  &.focus {
+    opacity: 1;
+    cursor: pointer;
+  }
+}
+
+@keyframes AddUnderline {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.underline {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  opacity: 0;
+  background-color: $background-purple-hard;
+
+  &.duplicated {
+    background-color: $background-red;
+  }
+
+  &.focus {
+    height: 2px;
+    opacity: 1;
+    animation: AddUnderline 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+
+  & span {
+    display: inline-block;
+  }
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-left: 10px;
+  margin-right: 6px;
+  color: $font-gray-hard;
+  cursor: pointer;
+}
+
+.etcButton {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-left: 6px;
+  color: $font-blue;
+  cursor: pointer;
+}
