@@ -137,6 +137,12 @@ a:active {
   color: inherit;
   background-color: inherit;
 }
+input {
+  border: none;
+  margin: 0;
+  padding: 0;
+  background-color: inherit;
+}
 button {
   border: none;
   margin: 0;

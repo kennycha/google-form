@@ -1,0 +1,31 @@
+@import "../../../../styles/utils.scss";
+
+.container {
+  position: relative;
+  width: 50%;
+  height: 62.5px;
+  padding-top: 14px;
+}
+
+.inner {
+  width: 100%;
+  height: 23.5px;
+}
+
+.answer {
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+
+  &::placeholder {
+    color: $font-gray-transparent;
+  }
+}
+
+.underline {
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px dotted $border-gray-transparent;
+}

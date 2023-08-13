@@ -58,7 +58,7 @@ const QuestionWrapper = ({ current, children }: PropsWithChildren<QuestionWrappe
           <QuestionTypeDropdown onSelectOption={() => {}} />
         </div>
       </div>
-      <div className={cx("detail")}>{children}</div>
+      {children}
       <div className={cx("options")}>
         <div className={cx("optionsInner")}>
           <button className={cx("copyButton")}>
