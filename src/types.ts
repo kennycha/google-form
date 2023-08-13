@@ -2,10 +2,6 @@ export type Nullable<T> = T | null;
 
 export type IconSizeTypes = "small" | "medium" | "large";
 
-export type FormStateTypes = "edit" | "view";
-
-export type QuestionTypes = "short" | "descriptive" | "choice" | "checkbox" | "dropdown";
-
 export type IconTypes =
   | "add"
   | "alert"
@@ -43,4 +39,26 @@ export enum IconTopEnum {
   text = 4650,
   upload = 1222,
   video = 6418,
+}
+
+export type QuestionTypes = "short" | "descriptive" | "choice" | "checkbox" | "dropdown";
+
+export interface QuestionOption {
+  id: string;
+  value: string;
+}
+
+export interface Question {
+  id: string;
+  title: string;
+  type: QuestionTypes;
+  options: QuestionOption[];
+  required: boolean;
+  answer?: string;
+}
+
+export interface Form {
+  title: string;
+  description: string;
+  questions: Question[];
 }
