@@ -46,6 +46,22 @@
   height: fit-content;
 }
 
+.profile {
+  @include flex-center;
+  width: 48px;
+  height: 48px;
+}
+
+.profileText {
+  @include flex-center;
+  width: 32px;
+  height: 32px;
+  background-color: rgba(124, 30, 162, 1);
+  border-radius: 100%;
+  font-size: 14px;
+  color: rgba(249, 245, 251, 1);
+}
+
 .title {
   grid-area: title;
   display: flex;
