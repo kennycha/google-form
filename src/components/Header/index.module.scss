@@ -50,6 +50,7 @@
   @include flex-center;
   width: 48px;
   height: 48px;
+  cursor: not-allowed;
 }
 
 .profileText {
@@ -88,6 +89,14 @@
   @include flex-center;
   position: relative;
   padding: 0 12px;
+
+  &:first-child {
+    cursor: default;
+  }
+
+  &:not(:first-child) {
+    cursor: not-allowed;
+  }
 }
 
 .tabText {
