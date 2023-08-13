@@ -3,54 +3,58 @@ import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import DeleteButton from "../../../common/DeleteButton";
 import Icon from "../../../common/Icon";
-import { Nullable } from "../../../../types";
+import { Nullable, QuestionOption } from "../../../../types";
+import { useDispatch } from "react-redux";
+import { addOption, changeOptionValue, deleteOption } from "../../../../features/form";
 
 const cx = classNames.bind(styles);
 
 interface DropdownQuestionDetailProps {
-  options: { id: string; value: string }[];
+  id: string;
+  options: QuestionOption[];
 }
 
-const DropdownQuestionDetail = ({ options }: DropdownQuestionDetailProps) => {
+const DropdownQuestionDetail = ({ id: questionId, options }: DropdownQuestionDetailProps) => {
+  const dispatch = useDispatch();
+
   const [currentOptionId, setCurrentOptionId] = useState<Nullable<string>>(null);
 
   const canDeleteOption = useMemo(() => options.length > 1, [options.length]);
 
-  const handleInputFocus = (id: string) => {
-    setCurrentOptionId(id);
+  const handleInputFocus = (optionId: string) => {
+    setCurrentOptionId(optionId);
   };
 
-  const handleInputBlur = (id: string, value: string) => {
-    const duplicated = options.find((option) => option.id !== id && option.value === value);
+  const handleInputBlur = (optionId: string, value: string, idx: number) => {
+    const duplicated = options.find((option) => option.id !== optionId && option.value === value);
     if (duplicated) {
-      console.log("기본값 부여");
+      dispatch(changeOptionValue({ questionId, optionId, value: `옵션 ${idx + 1}` }));
     } else {
-      console.log("값 변경");
+      dispatch(changeOptionValue({ questionId, optionId, value }));
     }
     setCurrentOptionId(null);
   };
 
-  const handleInputChange = (id: string, value: string) => {
-    // @TODO redux 연결
-    const duplicated = options.find((option) => option.id !== id && option.value === value);
-    if (duplicated) {
-      console.log("기본값 부여");
-    } else {
-      console.log("값 변경");
-    }
+  const handleInputChange = (optionId: string, value: string) => {
+    dispatch(changeOptionValue({ questionId, optionId, value }));
   };
 
-  const handleDeleteButtonClick = (id: string) => {
-    // @TODO id 사용해서 옵션 삭제
-    console.log(`delete ${id}`);
+  const handleDeleteButtonClick = (optionId: string) => {
+    dispatch(deleteOption({ questionId, optionId }));
+  };
+
+  const handleAddButtonClick = () => {
+    dispatch(addOption({ questionId }));
   };
 
   return (
     <div className={cx("container")}>
       <ul className={cx("options")}>
         {options.map((option, idx) => {
-          // 중복되는 경우 뒤에 있는 옵션에 표시하기 위해 id가 아닌 index를 사용
-          const duplicated = options.findIndex((opt) => opt.value === option.value) !== idx;
+          const duplicated =
+            option.id === currentOptionId
+              ? options.filter((opt) => opt.id !== currentOptionId && opt.value === option.value).length > 0
+              : options.findIndex((opt) => opt.value === option.value) !== idx;
 
           return (
             <li className={cx("option")} key={option.id}>
@@ -62,7 +66,7 @@ const DropdownQuestionDetail = ({ options }: DropdownQuestionDetailProps) => {
                     type="text"
                     value={option.value}
                     onFocus={() => handleInputFocus(option.id)}
-                    onBlur={(event) => handleInputBlur(option.id, event.target.value)}
+                    onBlur={(event) => handleInputBlur(option.id, event.target.value, idx)}
                     onChange={(event) => handleInputChange(option.id, event.target.value)}
                   />
                   <div className={cx("underline", { focus: option.id === currentOptionId, duplicated })} />
@@ -76,7 +80,7 @@ const DropdownQuestionDetail = ({ options }: DropdownQuestionDetailProps) => {
       </ul>
       <div className={cx("buttons")}>
         <div className={cx("order")}>{options.length + 1}</div>
-        <div className={cx("addButton")}>
+        <div className={cx("addButton")} onClick={handleAddButtonClick}>
           <p>옵션 추가</p>
         </div>
       </div>

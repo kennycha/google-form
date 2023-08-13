@@ -6,11 +6,12 @@ import DropdownQuestionDetail from "./DropdownQuestionDetail";
 import ShortQuestionDetail from "./ShortQuestionDetail";
 
 interface QuestionDetailProps {
+  id: string;
   type: QuestionTypes;
   options?: { id: string; value: string }[];
 }
 
-const QuestionDetail = ({ type, options = [] }: QuestionDetailProps) => {
+const QuestionDetail = ({ id, type, options = [] }: QuestionDetailProps) => {
   switch (type) {
     case "short": {
       return <ShortQuestionDetail />;
@@ -19,13 +20,13 @@ const QuestionDetail = ({ type, options = [] }: QuestionDetailProps) => {
       return <DescriptiveQuestionDetail />;
     }
     case "choice": {
-      return <ChoiceQuestionDetail options={options} />;
+      return <ChoiceQuestionDetail id={id} options={options} />;
     }
     case "checkbox": {
-      return <CheckboxQuestionDetail options={options} />;
+      return <CheckboxQuestionDetail id={id} options={options} />;
     }
     case "dropdown": {
-      return <DropdownQuestionDetail options={options} />;
+      return <DropdownQuestionDetail id={id} options={options} />;
     }
   }
 };

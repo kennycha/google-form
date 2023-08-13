@@ -3,55 +3,64 @@ import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import DeleteButton from "../../../common/DeleteButton";
 import Icon from "../../../common/Icon";
-import { Nullable } from "../../../../types";
+import { Nullable, QuestionOption } from "../../../../types";
+import { ETC_OPTION_ID } from "../../../../constants";
+import { useDispatch } from "react-redux";
+import { addOption, changeOptionValue, deleteOption } from "../../../../features/form";
 
 const cx = classNames.bind(styles);
 
 interface ChoiceQuestionDetailProps {
-  options: { id: string; value: string }[];
+  id: string;
+  options: QuestionOption[];
 }
 
-const ChoiceQuestionDetail = ({ options }: ChoiceQuestionDetailProps) => {
+const ChoiceQuestionDetail = ({ id: questionId, options }: ChoiceQuestionDetailProps) => {
+  const dispatch = useDispatch();
+
   const [currentOptionId, setCurrentOptionId] = useState<Nullable<string>>(null);
 
   const canDeleteOption = useMemo(() => options.length > 1, [options.length]);
-  const hasEtc = useMemo(() => options.find((option) => option.id === "etc"), [options]);
+  const editableOptions = useMemo(() => options.filter((option) => option.id !== ETC_OPTION_ID), [options]);
+  const etcOption = useMemo(() => options.find((option) => option.id === ETC_OPTION_ID), [options]);
 
-  const handleInputFocus = (id: string) => {
-    setCurrentOptionId(id);
+  const handleInputFocus = (optionId: string) => {
+    setCurrentOptionId(optionId);
   };
 
-  const handleInputBlur = (id: string, value: string) => {
-    const duplicated = options.find((option) => option.id !== id && option.value === value);
+  const handleInputBlur = (optionId: string, value: string, idx: number) => {
+    const duplicated = editableOptions.find((option) => option.id !== optionId && option.value === value);
     if (duplicated) {
-      console.log("기본값 부여");
+      dispatch(changeOptionValue({ questionId, optionId, value: `옵션 ${idx + 1}` }));
     } else {
-      console.log("값 변경");
+      dispatch(changeOptionValue({ questionId, optionId, value }));
     }
     setCurrentOptionId(null);
   };
 
-  const handleInputChange = (id: string, value: string) => {
-    // @TODO redux 연결
-    const duplicated = options.find((option) => option.id !== id && option.value === value);
-    if (duplicated) {
-      console.log("기본값 부여");
-    } else {
-      console.log("값 변경");
+  const handleInputChange = (optionId: string, value: string) => {
+    const duplicated = editableOptions.find((option) => option.id !== optionId && option.value === value);
+    if (!duplicated) {
+      dispatch(changeOptionValue({ questionId, optionId, value }));
     }
   };
 
-  const handleDeleteButtonClick = (id: string) => {
-    // @TODO id 사용해서 옵션 삭제
-    console.log(`delete ${id}`);
+  const handleDeleteButtonClick = (optionId: string) => {
+    dispatch(deleteOption({ questionId, optionId }));
+  };
+
+  const handleAddButtonClick = (isEtc = false) => {
+    dispatch(addOption({ questionId, isEtc }));
   };
 
   return (
     <div className={cx("container")}>
       <ul className={cx("options")}>
-        {options.map((option, idx) => {
-          // 중복되는 경우 뒤에 있는 옵션에 표시하기 위해 id가 아닌 index를 사용
-          const duplicated = options.findIndex((opt) => opt.value === option.value) !== idx;
+        {editableOptions.map((option, idx) => {
+          const duplicated =
+            option.id === currentOptionId
+              ? editableOptions.filter((opt) => opt.id !== currentOptionId && opt.value === option.value).length > 0
+              : editableOptions.findIndex((opt) => opt.value === option.value) !== idx;
 
           return (
             <li className={cx("option")} key={option.id}>
@@ -63,7 +72,7 @@ const ChoiceQuestionDetail = ({ options }: ChoiceQuestionDetailProps) => {
                     type="text"
                     value={option.value}
                     onFocus={() => handleInputFocus(option.id)}
-                    onBlur={(event) => handleInputBlur(option.id, event.target.value)}
+                    onBlur={(event) => handleInputBlur(option.id, event.target.value, idx)}
                     onChange={(event) => handleInputChange(option.id, event.target.value)}
                   />
                   <div className={cx("underline", { focus: option.id === currentOptionId, duplicated })} />
@@ -78,16 +87,28 @@ const ChoiceQuestionDetail = ({ options }: ChoiceQuestionDetailProps) => {
             </li>
           );
         })}
+        {etcOption && (
+          <li className={cx("option")} key={etcOption.id}>
+            <div className={cx("circle")} />
+            <div className={cx("optionContent")}>
+              <div className={cx("optionContentInner")}>
+                <input className={cx("optionText", { etc: true })} type="text" value={etcOption.value} disabled />
+                <div className={cx("underline")} />
+              </div>
+            </div>
+            {canDeleteOption && <DeleteButton onClick={() => handleDeleteButtonClick(etcOption.id)} />}
+          </li>
+        )}
       </ul>
       <div className={cx("buttons")}>
         <div className={cx("circle")} />
-        <div className={cx("addButton")}>
+        <div className={cx("addButton")} onClick={() => handleAddButtonClick()}>
           <p>옵션 추가</p>
         </div>
-        {!hasEtc && (
+        {!etcOption && (
           <>
             <p>또는</p>
-            <div className={cx("etcButton")}>
+            <div className={cx("etcButton")} onClick={() => handleAddButtonClick(true)}>
               <p>'기타' 추가</p>
             </div>
           </>

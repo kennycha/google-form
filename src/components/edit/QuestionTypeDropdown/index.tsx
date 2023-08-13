@@ -1,5 +1,5 @@
 import { Fragment, useCallback, useMemo, useRef, useState } from "react";
-import { IconTypes } from "../../../types";
+import { IconTypes, QuestionTypes } from "../../../types";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import Icon from "../../common/Icon";
@@ -7,7 +7,7 @@ import { useOutsideClick } from "../../../hooks";
 
 const cx = classNames.bind(styles);
 
-const OPTIONS: { icon: IconTypes; value: string; text: string }[] = [
+const OPTIONS: { icon: IconTypes; value: QuestionTypes; text: string }[] = [
   {
     icon: "short",
     value: "short",
@@ -36,11 +36,12 @@ const OPTIONS: { icon: IconTypes; value: string; text: string }[] = [
 ];
 
 interface QuestionTypeDropdownProps {
-  onSelectOption: (value: string) => void;
+  currentType: QuestionTypes;
+  onOptionSelect: (value: QuestionTypes) => void;
 }
 
-const QuestionTypeDropdown = ({ onSelectOption }: QuestionTypeDropdownProps) => {
-  const [currentOption, setCurrentOption] = useState(OPTIONS[0]);
+const QuestionTypeDropdown = ({ currentType, onOptionSelect }: QuestionTypeDropdownProps) => {
+  const [currentOption, setCurrentOption] = useState(OPTIONS.find((option) => option.value === currentType)!);
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -53,17 +54,17 @@ const QuestionTypeDropdown = ({ onSelectOption }: QuestionTypeDropdownProps) => 
     }
   }, [currentOption.value]);
 
-  const onHeaderClick = () => {
+  const handleHeaderClick = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const onOptionClick = (value: string) => {
+  const handleOptionClick = (value: QuestionTypes) => {
     const selected = OPTIONS.find((option) => option.value === value);
     if (!selected) return;
 
     setCurrentOption(selected);
     setIsOpen(false);
-    onSelectOption(value);
+    onOptionSelect(value);
   };
 
   const onOutsideClick = useCallback(() => {
@@ -73,7 +74,7 @@ const QuestionTypeDropdown = ({ onSelectOption }: QuestionTypeDropdownProps) => 
 
   return (
     <div className={cx("container")} ref={containerRef}>
-      <button className={cx("header")} onClick={onHeaderClick}>
+      <button className={cx("header")} onClick={handleHeaderClick}>
         <Icon type={currentOption.icon} size="small" />
         <p className={cx("headerText")}>{currentOption.text}</p>
         <div className={cx("triangle")} />
@@ -85,7 +86,7 @@ const QuestionTypeDropdown = ({ onSelectOption }: QuestionTypeDropdownProps) => 
               <Fragment key={option.value}>
                 <button
                   className={cx("option", { current: currentOption.value === option.value })}
-                  onClick={() => onOptionClick(option.value)}
+                  onClick={() => handleOptionClick(option.value)}
                 >
                   <Icon type={option.icon} size="small" />
                   <p className={cx("optionText")}>{option.text}</p>

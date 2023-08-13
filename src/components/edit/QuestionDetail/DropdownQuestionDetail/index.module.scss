@@ -14,6 +14,7 @@
   grid-template-columns: 20px 1fr 48px;
   column-gap: 0 10px;
   width: 100%;
+  height: 48px;
   align-items: center;
 }
 
@@ -34,6 +35,7 @@
   display: flex;
   align-items: center;
   width: 100%;
+  height: 100%;
   position: relative;
 }
 
@@ -62,6 +64,11 @@
   opacity: 0;
   background-color: $background-purple-hard;
 
+  :hover + & {
+    background-color: $background-gray-transparent;
+    opacity: 1;
+  }
+
   &.duplicated {
     background-color: $background-red;
   }
@@ -69,6 +76,7 @@
   &.focus {
     height: 2px;
     opacity: 1;
+    background-color: $background-purple-hard;
     animation: AddUnderline 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }

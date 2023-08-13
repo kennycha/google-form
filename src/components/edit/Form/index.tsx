@@ -4,20 +4,24 @@ import FormMetaSection from "../FormMetaSection";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import QuestionCard from "../QuestionCard";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
 
 const cx = classNames.bind(styles);
 
 const Form = () => {
   const [isDesktopSize, setIsDesktopSize] = useState(false);
+  const questions = useSelector((state: RootState) => state.form.questions);
+
   // @TODO section 선택에 따라 이동
   const [actionBarTop, setActionBarTop] = useState(0);
 
-  const onFormSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+  const handleFormSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
   };
 
   useLayoutEffect(() => {
-    const onWindowResize = () => {
+    const handleWindowResize = () => {
       if (window.innerWidth >= 951) {
         setIsDesktopSize(true);
       } else {
@@ -25,23 +29,23 @@ const Form = () => {
       }
     };
 
-    onWindowResize();
-    window.addEventListener("resize", onWindowResize);
+    handleWindowResize();
+    window.addEventListener("resize", handleWindowResize);
 
     return () => {
-      window.removeEventListener("resize", onWindowResize);
+      window.removeEventListener("resize", handleWindowResize);
     };
   }, []);
 
   return (
-    <form className={cx("container")} onSubmit={onFormSubmit}>
+    <form className={cx("container")} onSubmit={handleFormSubmit}>
       <div className={cx("meta")}>
         <FormMetaSection />
       </div>
       <ol className={cx("questions")}>
-        <QuestionCard id="aa" />
-        <QuestionCard id="aaa" />
-        <QuestionCard id="aaaa" />
+        {questions.map((question) => {
+          return <QuestionCard key={question.id} {...question} />;
+        })}
       </ol>
       <div className={cx("actionBar")} style={isDesktopSize ? { top: actionBarTop } : {}}>
         <ActionBar />

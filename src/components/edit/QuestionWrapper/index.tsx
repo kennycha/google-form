@@ -3,6 +3,15 @@ import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import Icon from "../../common/Icon";
 import QuestionTypeDropdown from "../QuestionTypeDropdown";
+import { useDispatch } from "react-redux";
+import {
+  changeQuestionTitle,
+  changeQuestionType,
+  deleteQuestion,
+  duplicateQuestion,
+  toggleQuestionRequired,
+} from "../../../features/form";
+import { QuestionTypes } from "../../../types";
 
 const cx = classNames.bind(styles);
 
@@ -10,24 +19,49 @@ const TITLE_PLACE_HOLDER = "질문";
 const TOGGLE_LABEL_TEXT = "필수";
 
 interface QuestionWrapperProps {
+  id: string;
+  title: string;
+  type: QuestionTypes;
+  required: boolean;
   current: boolean;
 }
 
-const QuestionWrapper = ({ current, children }: PropsWithChildren<QuestionWrapperProps>) => {
-  const [title, setTitle] = useState("");
+const QuestionWrapper = ({
+  id: questionId,
+  title,
+  type,
+  required,
+  current,
+  children,
+}: PropsWithChildren<QuestionWrapperProps>) => {
+  const dispatch = useDispatch();
+
   const [isTitleFocused, setIsTitleFocused] = useState(false);
 
-  const onTitleDivFocus = () => {
+  const handleTitleDivFocus = () => {
     setIsTitleFocused(true);
   };
 
-  const onTitleDivBlur: FocusEventHandler<HTMLDivElement> = (event) => {
-    setTitle(event.target.innerText);
+  const handleTitleDivBlur: FocusEventHandler<HTMLDivElement> = (event) => {
+    dispatch(changeQuestionTitle({ questionId, value: event.target.innerText }));
     setIsTitleFocused(false);
   };
 
-  // @TODO state 관리
-  const isRequired = true;
+  const handleToggleClick = () => {
+    dispatch(toggleQuestionRequired({ questionId }));
+  };
+
+  const handleDuplicateButtonClick = () => {
+    dispatch(duplicateQuestion({ questionId }));
+  };
+
+  const handleDeleteButtonClick = () => {
+    dispatch(deleteQuestion({ questionId }));
+  };
+
+  const onOptionSelect = (value: QuestionTypes) => {
+    dispatch(changeQuestionType({ questionId, value }));
+  };
 
   return (
     <div className={cx("container")}>
@@ -39,8 +73,8 @@ const QuestionWrapper = ({ current, children }: PropsWithChildren<QuestionWrappe
         <div className={cx("inputDivWrapper")}>
           <div
             className={cx("title")}
-            onFocus={onTitleDivFocus}
-            onBlur={onTitleDivBlur}
+            onFocus={handleTitleDivFocus}
+            onBlur={handleTitleDivBlur}
             contentEditable
             suppressContentEditableWarning
             placeholder={TITLE_PLACE_HOLDER}
@@ -55,24 +89,24 @@ const QuestionWrapper = ({ current, children }: PropsWithChildren<QuestionWrappe
         </button>
         <div className={cx("type")}>
           {/* @TODO 콜백 변경 */}
-          <QuestionTypeDropdown onSelectOption={() => {}} />
+          <QuestionTypeDropdown currentType={type} onOptionSelect={onOptionSelect} />
         </div>
       </div>
       {children}
       <div className={cx("options")}>
         <div className={cx("optionsInner")}>
-          <button className={cx("copyButton")}>
+          <button className={cx("duplicateButton")} onClick={handleDuplicateButtonClick}>
             <Icon type="copy" />
           </button>
-          <button className={cx("deleteButton")}>
+          <button className={cx("deleteButton")} onClick={handleDeleteButtonClick}>
             <Icon type="delete" />
           </button>
           <div className={cx("separator")} />
-          <div className={cx("requiredToggleWrapper", { toggled: isRequired })}>
-            <label htmlFor="requiredToggle" className={cx("toggleLabel")}>
+          <div className={cx("requiredToggleWrapper", { toggled: required })}>
+            <label htmlFor="requiredToggle" className={cx("toggleLabel")} onClick={handleToggleClick}>
               {TOGGLE_LABEL_TEXT}
             </label>
-            <div id="requiredToggle" className={cx("toggle")} role="checkbox">
+            <div id="requiredToggle" className={cx("toggle")} role="checkbox" onClick={handleToggleClick}>
               <div className={cx("toggleBar")} />
               <div className={cx("toggleHeadWrapper")}>
                 <div className={cx("toggleHead")} />
