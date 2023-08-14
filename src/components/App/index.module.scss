@@ -1,5 +1,10 @@
 @import "../../styles/utils.scss";
 
+$mobile-editform-header-height: 146px;
+$tablet-editform-header-height: 106px;
+$mobile-viewform-header-height: 110px;
+$tablet-viewform-header-height: 70px;
+
 .container {
   position: relative;
   width: 100%;
@@ -7,28 +12,48 @@
 }
 
 .header {
-  width: 100%;
-  height: $mobile-header-height;
   position: fixed;
-  top: 0;
-  left: 0;
   z-index: 2;
+  left: 0;
+  width: 100%;
+  top: 0;
+  height: $mobile-editform-header-height;
 
   @include tablet {
-    height: $tablet-header-height;
+    height: $tablet-editform-header-height;
+  }
+
+  .view > & {
+    width: 100%;
+    height: $mobile-viewform-header-height;
+
+    @include tablet {
+      height: $tablet-viewform-header-height;
+    }
   }
 }
 
 .form {
   position: absolute;
+  left: 0;
   width: 100%;
-  top: $mobile-header-height;
-  height: calc(100vh - $mobile-header-height);
   overflow: scroll;
   padding: 12px 0 0;
+  top: $mobile-editform-header-height;
+  height: calc(100vh - $mobile-editform-header-height);
 
   @include tablet {
-    top: $tablet-header-height;
-    height: calc(100vh - $tablet-header-height);
+    top: $tablet-editform-header-height;
+    height: calc(100vh - $tablet-editform-header-height);
+  }
+
+  .view > & {
+    top: $mobile-viewform-header-height;
+    height: calc(100vh - $mobile-viewform-header-height);
+
+    @include tablet {
+      top: $tablet-viewform-header-height;
+      height: calc(100vh - $tablet-viewform-header-height);
+    }
   }
 }

@@ -9,7 +9,7 @@ import { RootState } from "../../../store";
 
 const cx = classNames.bind(styles);
 
-const Form = () => {
+const EditForm = () => {
   const [isDesktopSize, setIsDesktopSize] = useState(false);
   const questions = useSelector((state: RootState) => state.form.questions);
 
@@ -54,4 +54,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default EditForm;

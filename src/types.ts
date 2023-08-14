@@ -5,6 +5,7 @@ export type IconSizeTypes = "small" | "medium" | "large";
 export type IconTypes =
   | "add"
   | "alert"
+  | "back"
   | "checkbox"
   | "choice"
   | "copy"
@@ -24,6 +25,7 @@ export type IconTypes =
 export enum IconTopEnum {
   add = 9140,
   alert = 9088,
+  back = 7506,
   checkbox = 4520,
   choice = 6908,
   copy = 1378,
