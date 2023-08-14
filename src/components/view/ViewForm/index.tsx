@@ -7,6 +7,7 @@ import Icon from "../../common/Icon";
 import QuestionInput from "../QuestionInput";
 import { DEFAULT_QUESTION_TITLE } from "../../../constants";
 import { resetAllAnswers } from "../../../features/form";
+import { checkHasSingleAnswer } from "../../../utils";
 
 const cx = classNames.bind(styles);
 
@@ -58,7 +59,12 @@ const ViewForm = () => {
       </div>
       <div className={cx("questions")}>
         {questions.map((question) => {
-          const hasError = hasSubmitted && question.required && (!question.answer || question.answer.length === 0);
+          let hasError: boolean;
+          if (checkHasSingleAnswer(question)) {
+            hasError = hasSubmitted && question.required && !question.answer;
+          } else {
+            hasError = hasSubmitted && question.required && (!question.answer || question.answer.length === 0);
+          }
 
           return (
             <div className={cx("question", { error: hasError })} key={question.id}>
