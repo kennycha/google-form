@@ -38,14 +38,23 @@
 
 .meta {
   display: grid;
-  grid-template-columns: 1fr 60px;
+  grid-template-columns: 1fr;
   gap: 8px;
   align-items: center;
   width: 100%;
 
   @include tablet {
-    grid-template-areas: "title upload type";
-    grid-template-columns: 1fr 48px 210px;
+    grid-template-areas: "title";
+    grid-template-columns: 1fr;
+  }
+
+  .current & {
+    grid-template-columns: 1fr 60px;
+
+    @include tablet {
+      grid-template-areas: "title upload type";
+      grid-template-columns: 1fr 48px 210px;
+    }
   }
 }
 
