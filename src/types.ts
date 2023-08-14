@@ -1,6 +1,6 @@
 export type Nullable<T> = T | null;
 
-export type IconSizeTypes = "small" | "medium" | "large";
+export type IconSizeTypes = "xsmall" | "small" | "medium" | "large";
 
 export type IconTypes =
   | "add"
@@ -8,6 +8,7 @@ export type IconTypes =
   | "back"
   | "checkbox"
   | "choice"
+  | "cloud"
   | "copy"
   | "delete"
   | "descriptive"
@@ -15,6 +16,7 @@ export type IconTypes =
   | "dropdown"
   | "eye"
   | "image"
+  | "mail"
   | "more"
   | "section"
   | "short"
@@ -28,6 +30,7 @@ export enum IconTopEnum {
   back = 7506,
   checkbox = 4520,
   choice = 6908,
+  cloud = 2024,
   copy = 1378,
   delete = 8412,
   descriptive = 7012,
@@ -35,6 +38,7 @@ export enum IconTopEnum {
   dropdown = 52,
   eye = 1690,
   image = 4572,
+  mail = 1768,
   more = 0,
   section = 3350,
   short = 2596,
@@ -50,13 +54,24 @@ export interface QuestionOption {
   value: string;
 }
 
-export interface Question {
+export type Question = QuestionWithSingleAnswer | QuestionWithMultipleAnswer;
+
+export interface QuestionWithSingleAnswer {
   id: string;
   title: string;
   type: QuestionTypes;
   options: QuestionOption[];
   required: boolean;
   answer?: string;
+}
+
+export interface QuestionWithMultipleAnswer {
+  id: string;
+  title: string;
+  type: QuestionTypes;
+  options: QuestionOption[];
+  required: boolean;
+  answer?: string[];
 }
 
 export interface Form {

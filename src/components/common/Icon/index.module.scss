@@ -4,6 +4,11 @@
   align-items: center;
   position: relative;
 
+  &.xsmall {
+    width: 20px;
+    height: 20px;
+  }
+
   &.small {
     width: 24px;
     height: 24px;
