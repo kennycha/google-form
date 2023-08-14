@@ -86,11 +86,12 @@ const QuestionWrapper = ({
         {current && (
           <>
             {/* 아래 요소는 구현 외 요소라 기능은 구현하지 않습니다.  */}
-            <button className={cx("imageButton")}>
-              <Icon type="image" />
-            </button>
+            <div className={cx("imageButtonWrapper")}>
+              <button className={cx("imageButton")}>
+                <Icon type="image" />
+              </button>
+            </div>
             <div className={cx("type")}>
-              {/* @TODO 콜백 변경 */}
               <QuestionTypeDropdown currentType={type} onOptionSelect={onOptionSelect} />
             </div>
           </>
