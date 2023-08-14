@@ -8,9 +8,9 @@ import QuestionDropdownInput from "./QuestionDropdownInput";
 import QuestionShortInput from "./QuestionShortInput";
 import { changeSingleAnswer } from "../../../features/form";
 
-type QuestionInputProps = { question: Question };
+type QuestionInputProps = { question: Question; hasError: boolean };
 
-const QuestionInput = ({ question }: QuestionInputProps) => {
+const QuestionInput = ({ question, hasError }: QuestionInputProps) => {
   const dispatch = useDispatch();
 
   const onAnswerReset = () => {
@@ -31,10 +31,12 @@ const QuestionInput = ({ question }: QuestionInputProps) => {
 
     switch (question.type) {
       case "short": {
-        return <QuestionShortInput answer={question.answer} onAnswerChange={onAnswerChange} />;
+        return <QuestionShortInput answer={question.answer} onAnswerChange={onAnswerChange} hasError={hasError} />;
       }
       case "descriptive": {
-        return <QuestionDescriptiveInput answer={question.answer} onAnswerChange={onAnswerChange} />;
+        return (
+          <QuestionDescriptiveInput answer={question.answer} onAnswerChange={onAnswerChange} hasError={hasError} />
+        );
       }
       case "choice": {
         return <QuestionChoiceInput />;

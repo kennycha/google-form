@@ -14,6 +14,7 @@ export type IconTypes =
   | "descriptive"
   | "drag"
   | "dropdown"
+  | "error"
   | "eye"
   | "image"
   | "mail"
@@ -36,6 +37,7 @@ export enum IconTopEnum {
   descriptive = 7012,
   drag = 6158,
   dropdown = 52,
+  error = 2232,
   eye = 1690,
   image = 4572,
   mail = 1768,

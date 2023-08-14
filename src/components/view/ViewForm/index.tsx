@@ -1,4 +1,4 @@
-import { FormEventHandler } from "react";
+import { FormEventHandler, useState } from "react";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,8 +17,11 @@ const ViewForm = () => {
 
   const dispatch = useDispatch();
 
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+
   const handleFormSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
+    setHasSubmitted(true);
     console.log("submit");
   };
 
@@ -54,12 +57,20 @@ const ViewForm = () => {
       </div>
       <div className={cx("questions")}>
         {questions.map((question) => {
+          const hasError = hasSubmitted && question.required && (!question.answer || question.answer.length === 0);
+
           return (
-            <div className={cx("question")} key={question.id}>
+            <div className={cx("question", { error: hasError })} key={question.id}>
               <p className={cx("questionTitle", { required: question.required })}>
                 {question.title.length > 0 ? question.title : DEFAULT_QUESTION_TITLE}
               </p>
-              <QuestionInput question={question} />
+              <QuestionInput question={question} hasError={hasError} />
+              {hasError && (
+                <div className={cx("questionError")}>
+                  <Icon type="error" size="small" />
+                  <p className={cx("questionErrorText")}>필수 질문입니다.</p>
+                </div>
+              )}
             </div>
           );
         })}

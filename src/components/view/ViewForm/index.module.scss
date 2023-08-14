@@ -129,21 +129,40 @@
 .question {
   display: flex;
   flex-direction: column;
-  row-gap: 16px;
   background-color: $background-white;
   border-radius: 8px;
   padding: 24px;
+  border: 1px solid transparent;
+
+  &.error {
+    border: 1px solid $border-red;
+  }
 }
 
 .questionTitle {
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
+  margin-bottom: 16px;
 
   &.required::after {
     content: " *";
     color: $font-red;
   }
+}
+
+.questionError {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+}
+
+.questionErrorText {
+  color: $font-red;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
 }
 
 .footer {

@@ -38,6 +38,10 @@
   height: 1px;
   background-color: $background-gray-transparent;
 
+  .error & {
+    background-color: $background-red !important;
+  }
+
   .answer:focus + & {
     height: 2px;
     opacity: 1;
