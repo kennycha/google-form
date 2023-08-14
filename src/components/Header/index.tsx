@@ -6,6 +6,7 @@ import classNames from "classnames/bind";
 import { RootState } from "../../store";
 import { changeMode } from "../../features/app";
 import { useMemo } from "react";
+import { resetAllAnswers } from "../../features/form";
 
 const cx = classNames.bind(styles);
 
@@ -18,10 +19,12 @@ const Header = () => {
 
   const onBackButtonClick = () => {
     dispatch(changeMode());
+    dispatch(resetAllAnswers());
   };
 
   const onPreviewButtonClick = () => {
     dispatch(changeMode());
+    dispatch(resetAllAnswers());
   };
 
   return (

@@ -56,15 +56,24 @@ export interface QuestionOption {
   value: string;
 }
 
-export type Question = QuestionWithSingleAnswer | QuestionWithMultipleAnswer;
+export type Question = QuestionWithManualAnswer | QuestionWithSingleAnswer | QuestionWithMultipleAnswer;
+
+export interface QuestionWithManualAnswer {
+  id: string;
+  title: string;
+  type: "short" | "descriptive";
+  options: QuestionOption[];
+  required: boolean;
+  answer?: string;
+}
 
 export interface QuestionWithSingleAnswer {
   id: string;
   title: string;
-  type: Omit<QuestionTypes, "checkbox">;
+  type: "choice" | "dropdown";
   options: QuestionOption[];
   required: boolean;
-  answer?: string;
+  answer?: QuestionOption;
 }
 
 export interface QuestionWithMultipleAnswer {
@@ -73,7 +82,7 @@ export interface QuestionWithMultipleAnswer {
   type: "checkbox";
   options: QuestionOption[];
   required: boolean;
-  answer?: string[];
+  answer?: QuestionOption[];
 }
 
 export interface Form {

@@ -1,0 +1,117 @@
+@import "../../../../styles/utils.scss";
+
+.container {
+}
+
+.options {
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  height: 40px;
+  font-size: 11pt;
+  line-height: 15px;
+  font-weight: 400;
+}
+
+.circle {
+  @include flex-center;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 2px solid $border-gray-hard;
+
+  .current & {
+    border-color: $border-purple;
+  }
+}
+
+.circleInner {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background-color: transparent;
+
+  .current & {
+    background-color: $background-purple-hard;
+  }
+}
+
+.optionText {
+}
+
+.etc {
+  height: 42px;
+  display: grid;
+  grid-template-columns: 20px 30px 1fr;
+  align-items: center;
+  column-gap: 12px;
+  height: 42px;
+  font-size: 11pt;
+  line-height: 15px;
+  font-weight: 400;
+
+  &.current {
+  }
+}
+
+.ectLabel {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.etcInputWrapper {
+  width: 100%;
+}
+
+.etcInput {
+  width: 100%;
+  font-size: 16px;
+  line-height: normal;
+}
+
+@keyframes AddUnderline {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.underline {
+  position: relative;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background-color: $background-gray-transparent;
+
+  .error & {
+    background-color: $background-red !important;
+  }
+
+  input:focus + & {
+    height: 2px;
+    opacity: 1;
+    background-color: $background-purple-hard;
+    animation: AddUnderline 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+.resetButtonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  height: 36px;
+}
+
+.resetButton {
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 36px;
+  color: $font-gray-soft;
+}

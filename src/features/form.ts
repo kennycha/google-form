@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { Form, QuestionTypes } from "../types";
+import type { Form, QuestionOption, QuestionTypes } from "../types";
 import { getRandomId } from "../utils";
 import { ETC_OPTION_ID } from "../constants";
 
@@ -100,15 +100,29 @@ export const formSlice = createSlice({
       if (!targetOption) return;
       targetOption.value = value;
     },
-    changeSingleAnswer: (state, action: PayloadAction<{ questionId: string; value: string }>) => {
+    changeManualAnswer: (state, action: PayloadAction<{ questionId: string; value: string }>) => {
       const { questionId, value } = action.payload;
       const targetQuestion = state.questions.find((question) => question.id === questionId);
       if (!targetQuestion) return;
       targetQuestion.answer = value;
     },
-    // changeMultipleAnswer: (state, action: PayloadAction<>) => {
-
-    // }
+    changeSingleAnswer: (state, action: PayloadAction<{ questionId: string; value: QuestionOption }>) => {
+      const { questionId, value } = action.payload;
+      const targetQuestion = state.questions.find((question) => question.id === questionId);
+      if (!targetQuestion) return;
+      targetQuestion.answer = value;
+    },
+    changeMultipleAnswer: (state, action: PayloadAction<{ questionId: string; value: QuestionOption[] }>) => {
+      const { questionId, value } = action.payload;
+      const targetQuestion = state.questions.find((question) => question.id === questionId);
+      if (!targetQuestion) return;
+      targetQuestion.answer = value;
+    },
+    resetAnswer: (state, action: PayloadAction<{ questionId: string }>) => {
+      const targetQuestion = state.questions.find((question) => question.id === action.payload.questionId);
+      if (!targetQuestion) return;
+      targetQuestion.answer = undefined;
+    },
     resetAllAnswers: (state) => {
       state.questions.forEach((question) => {
         question.answer = undefined;
@@ -129,8 +143,10 @@ export const {
   addOption,
   deleteOption,
   changeOptionValue,
+  changeManualAnswer,
   changeSingleAnswer,
-  // changeMultipleAnswer,
+  changeMultipleAnswer,
+  resetAnswer,
   resetAllAnswers,
 } = formSlice.actions;
 

@@ -23,6 +23,7 @@ const ViewForm = () => {
     event.preventDefault();
     setHasSubmitted(true);
     console.log("submit");
+    console.log(questions);
   };
 
   const handleResetButtonClick = () => {
@@ -79,9 +80,9 @@ const ViewForm = () => {
         <button className={cx("submitButton")} type="submit">
           제출
         </button>
-        <button className={cx("resetButton")} onClick={handleResetButtonClick}>
+        <div className={cx("resetButton")} onClick={handleResetButtonClick}>
           양식 지우기
-        </button>
+        </div>
       </div>
     </form>
   );

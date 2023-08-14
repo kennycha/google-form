@@ -1,49 +1,47 @@
 import { useDispatch } from "react-redux";
-import { Question } from "../../../types";
-import { checkHasMultipleAnswer } from "../../../utils";
+import { Question, QuestionOption } from "../../../types";
+import { checkHasManualAnswer, checkHasSingleAnswer } from "../../../utils";
 import QuestionCheckboxInput from "./QuestionCheckboxInput";
 import QuestionChoiceInput from "./QuestionChoiceInput";
 import QuestionDescriptiveInput from "./QuestionDescriptiveInput";
 import QuestionDropdownInput from "./QuestionDropdownInput";
 import QuestionShortInput from "./QuestionShortInput";
-import { changeSingleAnswer } from "../../../features/form";
+import { changeManualAnswer, changeMultipleAnswer, changeSingleAnswer, resetAnswer } from "../../../features/form";
 
 type QuestionInputProps = { question: Question; hasError: boolean };
 
 const QuestionInput = ({ question, hasError }: QuestionInputProps) => {
   const dispatch = useDispatch();
 
-  const onAnswerReset = () => {
-    console.log("reset");
-  };
-
-  if (checkHasMultipleAnswer(question)) {
+  if (checkHasManualAnswer(question)) {
     const onAnswerChange = (value: string) => {
-      console.log("questionId: ", question.id);
-      console.log("value: ", value);
+      dispatch(changeManualAnswer({ questionId: question.id, value }));
     };
 
-    return <QuestionCheckboxInput />;
+    const props = { answer: question.answer, onAnswerChange, hasError };
+
+    return question.type === "short" ? <QuestionShortInput {...props} /> : <QuestionDescriptiveInput {...props} />;
   } else {
-    const onAnswerChange = (value: string) => {
-      dispatch(changeSingleAnswer({ questionId: question.id, value }));
+    const onAnswerReset = () => {
+      dispatch(resetAnswer({ questionId: question.id }));
     };
 
-    switch (question.type) {
-      case "short": {
-        return <QuestionShortInput answer={question.answer} onAnswerChange={onAnswerChange} hasError={hasError} />;
-      }
-      case "descriptive": {
-        return (
-          <QuestionDescriptiveInput answer={question.answer} onAnswerChange={onAnswerChange} hasError={hasError} />
-        );
-      }
-      case "choice": {
-        return <QuestionChoiceInput />;
-      }
-      case "dropdown": {
-        return <QuestionDropdownInput />;
-      }
+    if (checkHasSingleAnswer(question)) {
+      const onAnswerChange = (value: QuestionOption) => {
+        dispatch(changeSingleAnswer({ questionId: question.id, value }));
+      };
+
+      const props = { options: question.options, answer: question.answer, onAnswerChange, onAnswerReset, hasError };
+
+      return question.type === "choice" ? <QuestionChoiceInput {...props} /> : <QuestionDropdownInput {...props} />;
+    } else {
+      const onAnswerChange = (options: QuestionOption[]) => {
+        dispatch(changeMultipleAnswer({ questionId: question.id, value: options }));
+      };
+
+      const props = { options: question.options, answer: question.answer, onAnswerChange, onAnswerReset, hasError };
+
+      return <QuestionCheckboxInput {...props} />;
     }
   }
 };
