@@ -47,7 +47,7 @@ export const formSlice = createSlice({
         id: getRandomId(),
         title,
         type,
-        options: options.map((option) => ({ ...option, id: getRandomId() })),
+        options: options.map((option) => ({ ...option, id: option.id === ETC_OPTION_ID ? option.id : getRandomId() })),
         required,
       };
       state.questions = [...state.questions.slice(0, idx), newQuestion, ...state.questions.slice(idx)];
