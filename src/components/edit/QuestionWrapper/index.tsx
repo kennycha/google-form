@@ -64,7 +64,7 @@ const QuestionWrapper = ({
   };
 
   return (
-    <div className={cx("container")}>
+    <div className={cx("container", { current })}>
       <div className={cx("dragHandle")}>
         <Icon type="drag" />
       </div>
@@ -75,50 +75,56 @@ const QuestionWrapper = ({
             className={cx("title")}
             onFocus={handleTitleDivFocus}
             onBlur={handleTitleDivBlur}
-            contentEditable
+            contentEditable={current}
             suppressContentEditableWarning
             placeholder={TITLE_PLACE_HOLDER}
           >
             {title}
           </div>
-          <div className={cx("underline", { focused: isTitleFocused })} />
+          {current && <div className={cx("underline", { focused: isTitleFocused })} />}
         </div>
-        {/* 아래 요소는 구현 외 요소라 기능은 구현하지 않습니다.  */}
-        <button className={cx("imageButton")}>
-          <Icon type="image" />
-        </button>
-        <div className={cx("type")}>
-          {/* @TODO 콜백 변경 */}
-          <QuestionTypeDropdown currentType={type} onOptionSelect={onOptionSelect} />
-        </div>
+        {current && (
+          <>
+            {/* 아래 요소는 구현 외 요소라 기능은 구현하지 않습니다.  */}
+            <button className={cx("imageButton")}>
+              <Icon type="image" />
+            </button>
+            <div className={cx("type")}>
+              {/* @TODO 콜백 변경 */}
+              <QuestionTypeDropdown currentType={type} onOptionSelect={onOptionSelect} />
+            </div>
+          </>
+        )}
       </div>
-      {children}
-      <div className={cx("options")}>
-        <div className={cx("optionsInner")}>
-          <button className={cx("duplicateButton")} onClick={handleDuplicateButtonClick}>
-            <Icon type="copy" />
-          </button>
-          <button className={cx("deleteButton")} onClick={handleDeleteButtonClick}>
-            <Icon type="delete" />
-          </button>
-          <div className={cx("separator")} />
-          <div className={cx("requiredToggleWrapper", { toggled: required })}>
-            <label htmlFor="requiredToggle" className={cx("toggleLabel")} onClick={handleToggleClick}>
-              {TOGGLE_LABEL_TEXT}
-            </label>
-            <div id="requiredToggle" className={cx("toggle")} role="checkbox" onClick={handleToggleClick}>
-              <div className={cx("toggleBar")} />
-              <div className={cx("toggleHeadWrapper")}>
-                <div className={cx("toggleHead")} />
+      <div className={cx("detail")}>{children}</div>
+      {current && (
+        <div className={cx("options")}>
+          <div className={cx("optionsInner")}>
+            <button className={cx("duplicateButton")} onClick={handleDuplicateButtonClick}>
+              <Icon type="copy" />
+            </button>
+            <button className={cx("deleteButton")} onClick={handleDeleteButtonClick}>
+              <Icon type="delete" />
+            </button>
+            <div className={cx("separator")} />
+            <div className={cx("requiredToggleWrapper", { toggled: required })}>
+              <label htmlFor="requiredToggle" className={cx("toggleLabel")} onClick={handleToggleClick}>
+                {TOGGLE_LABEL_TEXT}
+              </label>
+              <div id="requiredToggle" className={cx("toggle")} role="checkbox" onClick={handleToggleClick}>
+                <div className={cx("toggleBar")} />
+                <div className={cx("toggleHeadWrapper")}>
+                  <div className={cx("toggleHead")} />
+                </div>
               </div>
             </div>
+            {/* 아래 요소는 구현 외 요소라 기능은 구현하지 않습니다.  */}
+            <button className={cx("moreButton")}>
+              <Icon type="more" />
+            </button>
           </div>
-          {/* 아래 요소는 구현 외 요소라 기능은 구현하지 않습니다.  */}
-          <button className={cx("moreButton")}>
-            <Icon type="more" />
-          </button>
         </div>
-      </div>
+      )}
     </div>
   );
 };

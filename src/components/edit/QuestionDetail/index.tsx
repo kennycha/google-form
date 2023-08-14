@@ -9,9 +9,10 @@ interface QuestionDetailProps {
   id: string;
   type: QuestionTypes;
   options?: { id: string; value: string }[];
+  current: boolean;
 }
 
-const QuestionDetail = ({ id, type, options = [] }: QuestionDetailProps) => {
+const QuestionDetail = ({ id, type, options = [], current }: QuestionDetailProps) => {
   switch (type) {
     case "short": {
       return <ShortQuestionDetail />;
@@ -20,13 +21,13 @@ const QuestionDetail = ({ id, type, options = [] }: QuestionDetailProps) => {
       return <DescriptiveQuestionDetail />;
     }
     case "choice": {
-      return <ChoiceQuestionDetail id={id} options={options} />;
+      return <ChoiceQuestionDetail id={id} options={options} current={current} />;
     }
     case "checkbox": {
-      return <CheckboxQuestionDetail id={id} options={options} />;
+      return <CheckboxQuestionDetail id={id} options={options} current={current} />;
     }
     case "dropdown": {
-      return <DropdownQuestionDetail id={id} options={options} />;
+      return <DropdownQuestionDetail id={id} options={options} current={current} />;
     }
   }
 };

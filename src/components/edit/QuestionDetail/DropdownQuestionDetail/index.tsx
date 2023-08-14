@@ -12,9 +12,10 @@ const cx = classNames.bind(styles);
 interface DropdownQuestionDetailProps {
   id: string;
   options: QuestionOption[];
+  current: boolean;
 }
 
-const DropdownQuestionDetail = ({ id: questionId, options }: DropdownQuestionDetailProps) => {
+const DropdownQuestionDetail = ({ id: questionId, options, current }: DropdownQuestionDetailProps) => {
   const dispatch = useDispatch();
 
   const [currentOptionId, setCurrentOptionId] = useState<Nullable<string>>(null);
@@ -78,12 +79,14 @@ const DropdownQuestionDetail = ({ id: questionId, options }: DropdownQuestionDet
           );
         })}
       </ul>
-      <div className={cx("buttons")}>
-        <div className={cx("order")}>{options.length + 1}</div>
-        <div className={cx("addButton")} onClick={handleAddButtonClick}>
-          <p>옵션 추가</p>
+      {current && (
+        <div className={cx("buttons")}>
+          <div className={cx("order")}>{options.length + 1}</div>
+          <div className={cx("addButton")} onClick={handleAddButtonClick}>
+            <p>옵션 추가</p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -4,20 +4,28 @@ import FormMetaSection from "../FormMetaSection";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import QuestionCard from "../QuestionCard";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
+import { moveSection } from "../../../features/app";
+import { META_SECTION_ID } from "../../../constants";
 
 const cx = classNames.bind(styles);
 
 const EditForm = () => {
-  const [isDesktopSize, setIsDesktopSize] = useState(false);
   const questions = useSelector((state: RootState) => state.form.questions);
 
+  const dispatch = useDispatch();
+
+  const [isDesktopSize, setIsDesktopSize] = useState(false);
   // @TODO section 선택에 따라 이동
   const [actionBarTop, setActionBarTop] = useState(0);
 
   const handleFormSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
+  };
+
+  const handleSectionClick = (id: string) => {
+    dispatch(moveSection(id));
   };
 
   useLayoutEffect(() => {
@@ -39,12 +47,16 @@ const EditForm = () => {
 
   return (
     <form className={cx("container")} onSubmit={handleFormSubmit}>
-      <div className={cx("meta")}>
+      <div className={cx("meta")} onClick={() => handleSectionClick(META_SECTION_ID)}>
         <FormMetaSection />
       </div>
       <ol className={cx("questions")}>
         {questions.map((question) => {
-          return <QuestionCard key={question.id} {...question} />;
+          return (
+            <li key={question.id} onClick={() => handleSectionClick(question.id)}>
+              <QuestionCard {...question} />
+            </li>
+          );
         })}
       </ol>
       <div className={cx("actionBar")} style={isDesktopSize ? { top: actionBarTop } : {}}>

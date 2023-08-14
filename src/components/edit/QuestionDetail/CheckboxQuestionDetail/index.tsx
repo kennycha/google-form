@@ -13,14 +13,15 @@ const cx = classNames.bind(styles);
 interface CheckboxQuestionDetailProps {
   id: string;
   options: QuestionOption[];
+  current: boolean;
 }
 
-const CheckboxQuestionDetail = ({ id: questionId, options }: CheckboxQuestionDetailProps) => {
+const CheckboxQuestionDetail = ({ id: questionId, options, current }: CheckboxQuestionDetailProps) => {
   const dispatch = useDispatch();
 
   const [currentOptionId, setCurrentOptionId] = useState<Nullable<string>>(null);
 
-  const canDeleteOption = useMemo(() => options.length > 1, [options.length]);
+  const canDeleteOption = useMemo(() => current && options.length > 1, [current, options.length]);
   const editableOptions = useMemo(() => options.filter((option) => option.id !== ETC_OPTION_ID), [options]);
   const etcOption = useMemo(() => options.find((option) => option.id === ETC_OPTION_ID), [options]);
 
@@ -100,20 +101,22 @@ const CheckboxQuestionDetail = ({ id: questionId, options }: CheckboxQuestionDet
           </li>
         )}
       </ul>
-      <div className={cx("buttons")}>
-        <div className={cx("box")} />
-        <div className={cx("addButton")} onClick={() => handleAddButtonClick()}>
-          <p>옵션 추가</p>
+      {current && (
+        <div className={cx("buttons")}>
+          <div className={cx("box")} />
+          <div className={cx("addButton")} onClick={() => handleAddButtonClick()}>
+            <p>옵션 추가</p>
+          </div>
+          {!etcOption && (
+            <>
+              <p>또는</p>
+              <div className={cx("etcButton")} onClick={() => handleAddButtonClick(true)}>
+                <p>'기타' 추가</p>
+              </div>
+            </>
+          )}
         </div>
-        {!etcOption && (
-          <>
-            <p>또는</p>
-            <div className={cx("etcButton")} onClick={() => handleAddButtonClick(true)}>
-              <p>'기타' 추가</p>
-            </div>
-          </>
-        )}
-      </div>
+      )}
     </div>
   );
 };

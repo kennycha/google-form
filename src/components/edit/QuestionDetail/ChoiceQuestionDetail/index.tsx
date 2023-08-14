@@ -13,9 +13,10 @@ const cx = classNames.bind(styles);
 interface ChoiceQuestionDetailProps {
   id: string;
   options: QuestionOption[];
+  current: boolean;
 }
 
-const ChoiceQuestionDetail = ({ id: questionId, options }: ChoiceQuestionDetailProps) => {
+const ChoiceQuestionDetail = ({ id: questionId, options, current }: ChoiceQuestionDetailProps) => {
   const dispatch = useDispatch();
 
   const [currentOptionId, setCurrentOptionId] = useState<Nullable<string>>(null);
@@ -100,20 +101,22 @@ const ChoiceQuestionDetail = ({ id: questionId, options }: ChoiceQuestionDetailP
           </li>
         )}
       </ul>
-      <div className={cx("buttons")}>
-        <div className={cx("circle")} />
-        <div className={cx("addButton")} onClick={() => handleAddButtonClick()}>
-          <p>옵션 추가</p>
+      {current && (
+        <div className={cx("buttons")}>
+          <div className={cx("circle")} />
+          <div className={cx("addButton")} onClick={() => handleAddButtonClick()}>
+            <p>옵션 추가</p>
+          </div>
+          {!etcOption && (
+            <>
+              <p>또는</p>
+              <div className={cx("etcButton")} onClick={() => handleAddButtonClick(true)}>
+                <p>'기타' 추가</p>
+              </div>
+            </>
+          )}
         </div>
-        {!etcOption && (
-          <>
-            <p>또는</p>
-            <div className={cx("etcButton")} onClick={() => handleAddButtonClick(true)}>
-              <p>'기타' 추가</p>
-            </div>
-          </>
-        )}
-      </div>
+      )}
     </div>
   );
 };
