@@ -46,12 +46,12 @@
   position: absolute;
   left: 0;
   width: 100%;
-  border-top: 1px solid $border-gray-transparent;
+  border-top: 1px solid $border-gray;
 }
 
 .user {
   width: 100%;
-  margin-top: 12px;
+  margin: 12px 0;
   display: grid;
   grid-template-areas:
     "account"
@@ -105,6 +105,18 @@
   height: 20px;
   display: flex;
   column-gap: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: $font-gray-soft;
+}
+
+.information {
+  padding-top: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: $font-red;
 }
 
 .questions {
@@ -127,6 +139,11 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
+
+  &.required::after {
+    content: " *";
+    color: $font-red;
+  }
 }
 
 .footer {

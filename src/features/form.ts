@@ -100,6 +100,20 @@ export const formSlice = createSlice({
       if (!targetOption) return;
       targetOption.value = value;
     },
+    changeSingleAnswer: (state, action: PayloadAction<{ questionId: string; value: string }>) => {
+      const { questionId, value } = action.payload;
+      const targetQuestion = state.questions.find((question) => question.id === questionId);
+      if (!targetQuestion) return;
+      targetQuestion.answer = value;
+    },
+    // changeMultipleAnswer: (state, action: PayloadAction<>) => {
+
+    // }
+    resetAllAnswers: (state) => {
+      state.questions.forEach((question) => {
+        question.answer = undefined;
+      });
+    },
   },
 });
 
@@ -115,6 +129,9 @@ export const {
   addOption,
   deleteOption,
   changeOptionValue,
+  changeSingleAnswer,
+  // changeMultipleAnswer,
+  resetAllAnswers,
 } = formSlice.actions;
 
 export default formSlice.reducer;
