@@ -4,12 +4,15 @@ import classNames from "classnames/bind";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import Icon from "../../common/Icon";
+import QuestionInput from "../QuestionInput";
+import { DEFAULT_QUESTION_TITLE } from "../../../constants";
 
 const cx = classNames.bind(styles);
 
 const ViewForm = () => {
   const formTitle = useSelector((state: RootState) => state.form.title);
   const formDescription = useSelector((state: RootState) => state.form.description);
+  const questions = useSelector((state: RootState) => state.form.questions);
 
   const handleFormSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -39,7 +42,18 @@ const ViewForm = () => {
           </button>
         </div>
       </div>
-      <div className={cx("questions")}></div>
+      <div className={cx("questions")}>
+        {questions.map((question) => {
+          return (
+            <div className={cx("question")} key={question.id}>
+              <p className={cx("questionTitle")}>
+                {question.title.length > 0 ? question.title : DEFAULT_QUESTION_TITLE}
+              </p>
+              <QuestionInput question={question} />
+            </div>
+          );
+        })}
+      </div>
       <div className={cx("footer")}>
         <button className={cx("submitButton")}>제출</button>
         <button className={cx("resetButton")}>양식 지우기</button>

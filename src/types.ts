@@ -59,7 +59,7 @@ export type Question = QuestionWithSingleAnswer | QuestionWithMultipleAnswer;
 export interface QuestionWithSingleAnswer {
   id: string;
   title: string;
-  type: QuestionTypes;
+  type: Omit<QuestionTypes, "checkbox">;
   options: QuestionOption[];
   required: boolean;
   answer?: string;
@@ -68,7 +68,7 @@ export interface QuestionWithSingleAnswer {
 export interface QuestionWithMultipleAnswer {
   id: string;
   title: string;
-  type: QuestionTypes;
+  type: "checkbox";
   options: QuestionOption[];
   required: boolean;
   answer?: string[];
