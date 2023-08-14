@@ -2,8 +2,7 @@
 
 $mobile-editform-header-height: 146px;
 $tablet-editform-header-height: 106px;
-$mobile-viewform-header-height: 110px;
-$tablet-viewform-header-height: 70px;
+$viewform-header-height: 60px;
 
 .container {
   position: relative;
@@ -25,11 +24,7 @@ $tablet-viewform-header-height: 70px;
 
   .view > & {
     width: 100%;
-    height: $mobile-viewform-header-height;
-
-    @include tablet {
-      height: $tablet-viewform-header-height;
-    }
+    height: $viewform-header-height;
   }
 }
 
@@ -48,12 +43,7 @@ $tablet-viewform-header-height: 70px;
   }
 
   .view > & {
-    top: $mobile-viewform-header-height;
-    height: calc(100vh - $mobile-viewform-header-height);
-
-    @include tablet {
-      top: $tablet-viewform-header-height;
-      height: calc(100vh - $tablet-viewform-header-height);
-    }
+    top: $viewform-header-height;
+    height: calc(100vh - $viewform-header-height);
   }
 }

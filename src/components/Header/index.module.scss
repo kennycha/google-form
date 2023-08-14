@@ -24,18 +24,9 @@
   }
 
   &.view {
-    grid-template-areas:
-      "logo menus"
-      "title title";
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 60px 1fr;
-
-    @include tablet {
-      grid-template-areas: "logo title menus";
-      grid-template-columns: 60px 1fr 60px;
-      grid-template-rows: 60px;
-      grid-row-gap: 8px;
-    }
+    display: flex;
+    justify-content: flex-end;
+    background-color: transparent;
   }
 }
 
