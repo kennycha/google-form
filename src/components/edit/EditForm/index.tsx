@@ -1,4 +1,4 @@
-import { FormEventHandler, useLayoutEffect, useState } from "react";
+import { FormEventHandler, MouseEvent, useLayoutEffect, useRef, useState } from "react";
 import ActionBar from "../ActionBar";
 import FormMetaSection from "../FormMetaSection";
 import styles from "./index.module.scss";
@@ -17,15 +17,26 @@ const EditForm = () => {
   const dispatch = useDispatch();
 
   const [isDesktopSize, setIsDesktopSize] = useState(false);
-  // @TODO section 선택에 따라 이동
+  const metaDivRef = useRef<HTMLDivElement>(null);
+  const questionsOlRef = useRef<HTMLOListElement>(null);
   const [actionBarTop, setActionBarTop] = useState(0);
 
   const handleFormSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
   };
 
-  const handleSectionClick = (id: string) => {
+  const handleSectionClick = (event: MouseEvent, id: string) => {
     dispatch(moveSection(id));
+
+    if (metaDivRef.current && questionsOlRef.current) {
+      [metaDivRef.current, ...questionsOlRef.current.children].forEach((element) => {
+        if (element.contains(event.target as Node)) {
+          setTimeout(() => {
+            setActionBarTop(element.getBoundingClientRect().top);
+          }, 0);
+        }
+      });
+    }
   };
 
   useLayoutEffect(() => {
@@ -47,13 +58,13 @@ const EditForm = () => {
 
   return (
     <form className={cx("container")} onSubmit={handleFormSubmit}>
-      <div className={cx("meta")} onClick={() => handleSectionClick(META_SECTION_ID)}>
+      <div className={cx("meta")} onClick={(event) => handleSectionClick(event, META_SECTION_ID)} ref={metaDivRef}>
         <FormMetaSection />
       </div>
-      <ol className={cx("questions")}>
+      <ol className={cx("questions")} ref={questionsOlRef}>
         {questions.map((question) => {
           return (
-            <li key={question.id} onClick={() => handleSectionClick(question.id)}>
+            <li key={question.id} onClick={(event) => handleSectionClick(event, question.id)}>
               <QuestionCard {...question} />
             </li>
           );

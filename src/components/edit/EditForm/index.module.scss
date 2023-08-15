@@ -32,9 +32,9 @@
   @include desktop {
     width: fit-content;
     height: fit-content;
-    position: absolute;
+    top: 0;
     left: auto;
-    right: -62px;
+    right: calc((100% - 768px) / 2 - 56px);
     bottom: auto;
     transition: top 0.3s ease-in-out;
   }
