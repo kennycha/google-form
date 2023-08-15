@@ -7,7 +7,8 @@ import Icon from "../../common/Icon";
 import QuestionInput from "../QuestionInput";
 import { DEFAULT_QUESTION_TITLE } from "../../../constants";
 import { resetAllAnswers } from "../../../features/form";
-import { checkHasSingleAnswer } from "../../../utils";
+import { checkHasManualAnswer, checkHasSingleAnswer } from "../../../utils";
+import AnswerModal from "../AnswerModal";
 
 const cx = classNames.bind(styles);
 
@@ -19,16 +20,33 @@ const ViewForm = () => {
   const dispatch = useDispatch();
 
   const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleFormSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     setHasSubmitted(true);
-    console.log("submit");
-    console.log(questions);
+    if (
+      questions.find((question) => {
+        if (checkHasManualAnswer(question)) {
+          return question.required && (!question.answer || question.answer.length === 0);
+        } else if (checkHasSingleAnswer(question)) {
+          return question.required && !question.answer;
+        } else {
+          return question.required && (!question.answer || question.answer.length === 0);
+        }
+      })
+    ) {
+      return;
+    }
+    setIsModalOpen(true);
   };
 
   const handleResetButtonClick = () => {
     dispatch(resetAllAnswers());
+  };
+
+  const onModalClose = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -90,6 +108,7 @@ const ViewForm = () => {
           양식 지우기
         </div>
       </div>
+      {isModalOpen && <AnswerModal onClose={onModalClose} />}
     </form>
   );
 };
