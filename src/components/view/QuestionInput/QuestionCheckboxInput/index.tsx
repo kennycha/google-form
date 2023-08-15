@@ -92,7 +92,7 @@ const QuestionCheckboxInput = ({
           </div>
         )}
       </ul>
-      {answer && (
+      {answer && answer.length > 0 && (
         <div className={cx("resetButtonWrapper")}>
           <div className={cx("resetButton")} onClick={handleResetButtonClick}>
             선택해제
