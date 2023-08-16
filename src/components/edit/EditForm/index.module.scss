@@ -32,7 +32,6 @@
   @include desktop {
     width: fit-content;
     height: fit-content;
-    top: 0;
     left: auto;
     right: calc((100% - 768px) / 2 - 56px);
     bottom: auto;

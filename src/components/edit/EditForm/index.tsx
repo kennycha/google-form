@@ -19,7 +19,7 @@ const EditForm = () => {
   const [isDesktopSize, setIsDesktopSize] = useState(false);
   const metaDivRef = useRef<HTMLDivElement>(null);
   const questionsOlRef = useRef<HTMLOListElement>(null);
-  const [actionBarTop, setActionBarTop] = useState(0);
+  const [actionBarTop, setActionBarTop] = useState(118);
 
   const handleFormSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
