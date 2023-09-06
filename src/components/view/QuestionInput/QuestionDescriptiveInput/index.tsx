@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, memo } from "react";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 
@@ -10,7 +10,7 @@ interface QuestionDescriptiveInputProps {
   onAnswerChange: (value: string) => void;
 }
 
-const QuestionDescriptiveInput = ({ answer = "", hasError, onAnswerChange }: QuestionDescriptiveInputProps) => {
+const QuestionDescriptiveInput = memo(({ answer = "", hasError, onAnswerChange }: QuestionDescriptiveInputProps) => {
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     onAnswerChange(event.target.value);
   };
@@ -23,6 +23,6 @@ const QuestionDescriptiveInput = ({ answer = "", hasError, onAnswerChange }: Que
       </div>
     </div>
   );
-};
+});
 
 export default QuestionDescriptiveInput;

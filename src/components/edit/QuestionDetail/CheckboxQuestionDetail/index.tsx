@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import DeleteButton from "../../../common/DeleteButton";
@@ -16,7 +16,7 @@ interface CheckboxQuestionDetailProps {
   current: boolean;
 }
 
-const CheckboxQuestionDetail = ({ id: questionId, options, current }: CheckboxQuestionDetailProps) => {
+const CheckboxQuestionDetail = memo(({ id: questionId, options, current }: CheckboxQuestionDetailProps) => {
   const dispatch = useDispatch();
 
   const [currentOptionId, setCurrentOptionId] = useState<Nullable<string>>(null);
@@ -119,6 +119,6 @@ const CheckboxQuestionDetail = ({ id: questionId, options, current }: CheckboxQu
       )}
     </div>
   );
-};
+});
 
 export default CheckboxQuestionDetail;

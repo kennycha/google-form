@@ -7,10 +7,11 @@ import QuestionDescriptiveInput from "./QuestionDescriptiveInput";
 import QuestionDropdownInput from "./QuestionDropdownInput";
 import QuestionShortInput from "./QuestionShortInput";
 import { changeManualAnswer, changeMultipleAnswer, changeSingleAnswer, resetAnswer } from "../../../features/form";
+import { memo } from "react";
 
 type QuestionInputProps = { question: Question; hasError: boolean };
 
-const QuestionInput = ({ question, hasError }: QuestionInputProps) => {
+const QuestionInput = memo(({ question, hasError }: QuestionInputProps) => {
   const dispatch = useDispatch();
 
   if (checkHasManualAnswer(question)) {
@@ -44,6 +45,6 @@ const QuestionInput = ({ question, hasError }: QuestionInputProps) => {
       return <QuestionCheckboxInput {...props} />;
     }
   }
-};
+});
 
 export default QuestionInput;

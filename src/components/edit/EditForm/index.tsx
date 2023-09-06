@@ -1,4 +1,4 @@
-import { FormEventHandler, MouseEvent, useLayoutEffect, useRef, useState } from "react";
+import { FormEventHandler, MouseEvent, memo, useLayoutEffect, useRef, useState } from "react";
 import ActionBar from "../ActionBar";
 import FormMetaSection from "../FormMetaSection";
 import styles from "./index.module.scss";
@@ -11,7 +11,7 @@ import { META_SECTION_ID } from "../../../constants";
 
 const cx = classNames.bind(styles);
 
-const EditForm = () => {
+const EditForm = memo(() => {
   const questions = useSelector((state: RootState) => state.form.questions);
 
   const dispatch = useDispatch();
@@ -75,6 +75,6 @@ const EditForm = () => {
       </div>
     </form>
   );
-};
+});
 
 export default EditForm;

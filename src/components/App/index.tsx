@@ -5,11 +5,11 @@ import EditForm from "../edit/EditForm";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import ViewForm from "../view/ViewForm";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 
 const cx = classNames.bind(styles);
 
-const App = () => {
+const App = memo(() => {
   const mode = useSelector((state: RootState) => state.app.mode);
   const isViewMode = useMemo(() => mode === "view", [mode]);
 
@@ -21,6 +21,6 @@ const App = () => {
       <div className={cx("form")}>{isViewMode ? <ViewForm /> : <EditForm />}</div>
     </div>
   );
-};
+});
 
 export default App;

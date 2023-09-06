@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, memo } from "react";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 
@@ -10,7 +10,7 @@ interface QuestionShortInputProps {
   onAnswerChange: (value: string) => void;
 }
 
-const QuestionShortInput = ({ answer = "", hasError, onAnswerChange }: QuestionShortInputProps) => {
+const QuestionShortInput = memo(({ answer = "", hasError, onAnswerChange }: QuestionShortInputProps) => {
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     onAnswerChange(event.target.value);
   };
@@ -23,6 +23,6 @@ const QuestionShortInput = ({ answer = "", hasError, onAnswerChange }: QuestionS
       </div>
     </div>
   );
-};
+});
 
 export default QuestionShortInput;

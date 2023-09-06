@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useMemo, useRef, useState } from "react";
+import { Fragment, memo, useCallback, useMemo, useRef, useState } from "react";
 import { IconTypes, QuestionTypes } from "../../../types";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -40,7 +40,7 @@ interface QuestionTypeDropdownProps {
   onOptionSelect: (value: QuestionTypes) => void;
 }
 
-const QuestionTypeDropdown = ({ currentType, onOptionSelect }: QuestionTypeDropdownProps) => {
+const QuestionTypeDropdown = memo(({ currentType, onOptionSelect }: QuestionTypeDropdownProps) => {
   const [currentOption, setCurrentOption] = useState(OPTIONS.find((option) => option.value === currentType)!);
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -99,6 +99,6 @@ const QuestionTypeDropdown = ({ currentType, onOptionSelect }: QuestionTypeDropd
       )}
     </div>
   );
-};
+});
 
 export default QuestionTypeDropdown;

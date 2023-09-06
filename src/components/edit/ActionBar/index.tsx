@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { memo, useLayoutEffect, useState } from "react";
 import Icon from "../../common/Icon";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 
 const OTHER_ICON_TYPES = ["upload", "text", "image", "video", "section"] as const;
 
-const ActionBar = () => {
+const ActionBar = memo(() => {
   const dispatch = useDispatch();
 
   const [iconSize, setIconSize] = useState<IconSizeTypes>("medium");
@@ -51,6 +51,6 @@ const ActionBar = () => {
       </ol>
     </div>
   );
-};
+});
 
 export default ActionBar;

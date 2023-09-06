@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { memo, useCallback, useMemo, useRef, useState } from "react";
 import { QuestionOption } from "../../../../types";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
@@ -13,7 +13,7 @@ interface QuestionDropdownInputProps {
   onAnswerReset: () => void;
 }
 
-const QuestionDropdownInput = ({ options, answer, onAnswerChange, onAnswerReset }: QuestionDropdownInputProps) => {
+const QuestionDropdownInput = memo(({ options, answer, onAnswerChange, onAnswerReset }: QuestionDropdownInputProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const optionsTop = useMemo(() => {
@@ -73,6 +73,6 @@ const QuestionDropdownInput = ({ options, answer, onAnswerChange, onAnswerReset 
       )}
     </div>
   );
-};
+});
 
 export default QuestionDropdownInput;

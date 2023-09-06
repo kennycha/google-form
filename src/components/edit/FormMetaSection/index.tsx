@@ -1,4 +1,4 @@
-import { FocusEventHandler, useMemo, useState } from "react";
+import { FocusEventHandler, memo, useMemo, useState } from "react";
 import styles from "./index.module.scss";
 import classNamess from "classnames/bind";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +10,7 @@ const cx = classNamess.bind(styles);
 
 const DESCRIPTION_PLACEHOLDER = "설문지 설명";
 
-const FormMetaSection = () => {
+const FormMetaSection = memo(() => {
   const currentSectionId = useSelector((state: RootState) => state.app.currentSectionId);
   const title = useSelector((state: RootState) => state.form.title);
   const description = useSelector((state: RootState) => state.form.description);
@@ -79,6 +79,6 @@ const FormMetaSection = () => {
       </div>
     </section>
   );
-};
+});
 
 export default FormMetaSection;

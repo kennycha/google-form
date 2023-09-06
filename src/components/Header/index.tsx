@@ -5,12 +5,12 @@ import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import { RootState } from "../../store";
 import { changeMode } from "../../features/app";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { resetAllAnswers } from "../../features/form";
 
 const cx = classNames.bind(styles);
 
-const Header = () => {
+const Header = memo(() => {
   const formTitle = useSelector((state: RootState) => state.form.title);
   const mode = useSelector((state: RootState) => state.app.mode);
   const isViewMode = useMemo(() => mode === "view", [mode]);
@@ -66,6 +66,6 @@ const Header = () => {
       )}
     </header>
   );
-};
+});
 
 export default Header;

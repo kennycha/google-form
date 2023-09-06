@@ -3,7 +3,7 @@ import Modal from "../../common/Modal";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import { RootState } from "../../../store";
-import { ReactNode } from "react";
+import { ReactNode, memo } from "react";
 import { checkHasManualAnswer, checkHasSingleAnswer } from "../../../utils";
 
 const cx = classNames.bind(styles);
@@ -12,7 +12,7 @@ interface AnswerModalProps {
   onClose: () => void;
 }
 
-const AnswerModal = ({ onClose }: AnswerModalProps) => {
+const AnswerModal = memo(({ onClose }: AnswerModalProps) => {
   const questions = useSelector((state: RootState) => state.form.questions);
 
   return (
@@ -49,6 +49,6 @@ const AnswerModal = ({ onClose }: AnswerModalProps) => {
       </div>
     </Modal>
   );
-};
+});
 
 export default AnswerModal;

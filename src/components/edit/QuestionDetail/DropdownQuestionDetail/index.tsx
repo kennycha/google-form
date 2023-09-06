@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import DeleteButton from "../../../common/DeleteButton";
@@ -15,7 +15,7 @@ interface DropdownQuestionDetailProps {
   current: boolean;
 }
 
-const DropdownQuestionDetail = ({ id: questionId, options, current }: DropdownQuestionDetailProps) => {
+const DropdownQuestionDetail = memo(({ id: questionId, options, current }: DropdownQuestionDetailProps) => {
   const dispatch = useDispatch();
 
   const [currentOptionId, setCurrentOptionId] = useState<Nullable<string>>(null);
@@ -89,6 +89,6 @@ const DropdownQuestionDetail = ({ id: questionId, options, current }: DropdownQu
       )}
     </div>
   );
-};
+});
 
 export default DropdownQuestionDetail;

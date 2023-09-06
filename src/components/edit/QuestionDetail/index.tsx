@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { QuestionTypes } from "../../../types";
 import CheckboxQuestionDetail from "./CheckboxQuestionDetail";
 import ChoiceQuestionDetail from "./ChoiceQuestionDetail";
@@ -12,7 +13,7 @@ interface QuestionDetailProps {
   current: boolean;
 }
 
-const QuestionDetail = ({ id, type, options = [], current }: QuestionDetailProps) => {
+const QuestionDetail = memo(({ id, type, options = [], current }: QuestionDetailProps) => {
   switch (type) {
     case "short": {
       return <ShortQuestionDetail />;
@@ -30,6 +31,6 @@ const QuestionDetail = ({ id, type, options = [], current }: QuestionDetailProps
       return <DropdownQuestionDetail id={id} options={options} current={current} />;
     }
   }
-};
+});
 
 export default QuestionDetail;

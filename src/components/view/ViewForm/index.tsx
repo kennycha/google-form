@@ -1,4 +1,4 @@
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, memo, useState } from "react";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +12,7 @@ import AnswerModal from "../AnswerModal";
 
 const cx = classNames.bind(styles);
 
-const ViewForm = () => {
+const ViewForm = memo(() => {
   const formTitle = useSelector((state: RootState) => state.form.title);
   const formDescription = useSelector((state: RootState) => state.form.description);
   const questions = useSelector((state: RootState) => state.form.questions);
@@ -111,6 +111,6 @@ const ViewForm = () => {
       {isModalOpen && <AnswerModal onClose={onModalClose} />}
     </form>
   );
-};
+});
 
 export default ViewForm;

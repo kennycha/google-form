@@ -1,9 +1,10 @@
+import { memo } from "react";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-const DescriptiveQuestionDetail = () => {
+const DescriptiveQuestionDetail = memo(() => {
   return (
     <div className={cx("container")}>
       <div className={cx("inner")}>
@@ -12,6 +13,6 @@ const DescriptiveQuestionDetail = () => {
       </div>
     </div>
   );
-};
+});
 
 export default DescriptiveQuestionDetail;

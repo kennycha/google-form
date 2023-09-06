@@ -5,13 +5,13 @@ import QuestionDetail from "../QuestionDetail";
 import QuestionWrapper from "../QuestionWrapper";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 
 const cx = classNames.bind(styles);
 
 type QuestionCardProps = Question;
 
-const QuestionCard = ({ id, title, type, options, required }: QuestionCardProps) => {
+const QuestionCard = memo(({ id, title, type, options, required }: QuestionCardProps) => {
   const currentSectionId = useSelector((state: RootState) => state.app.currentSectionId);
 
   const current = useMemo(() => {
@@ -25,6 +25,6 @@ const QuestionCard = ({ id, title, type, options, required }: QuestionCardProps)
       </div>
     </QuestionWrapper>
   );
-};
+});
 
 export default QuestionCard;
