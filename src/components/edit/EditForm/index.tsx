@@ -1,4 +1,4 @@
-import { FormEventHandler, MouseEvent, memo, useLayoutEffect, useRef, useState } from "react";
+import { FormEventHandler, MouseEvent, memo, useCallback, useRef, useState } from "react";
 import ActionBar from "../ActionBar";
 import FormMetaSection from "../FormMetaSection";
 import styles from "./index.module.scss";
@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { moveSection } from "../../../features/app";
 import { META_SECTION_ID } from "../../../constants";
+import { useWindowResize } from "../../../hooks";
 
 const cx = classNames.bind(styles);
 
@@ -39,22 +40,14 @@ const EditForm = memo(() => {
     }
   };
 
-  useLayoutEffect(() => {
-    const handleWindowResize = () => {
-      if (window.innerWidth >= 951) {
-        setIsDesktopSize(true);
-      } else {
-        setIsDesktopSize(false);
-      }
-    };
-
-    handleWindowResize();
-    window.addEventListener("resize", handleWindowResize);
-
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
+  const onWindowResize = useCallback(() => {
+    if (window.innerWidth >= 951) {
+      setIsDesktopSize(true);
+    } else {
+      setIsDesktopSize(false);
+    }
   }, []);
+  useWindowResize(onWindowResize);
 
   return (
     <form className={cx("container")} onSubmit={handleFormSubmit}>

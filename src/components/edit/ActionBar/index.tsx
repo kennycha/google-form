@@ -1,10 +1,11 @@
-import { memo, useLayoutEffect, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import Icon from "../../common/Icon";
 import styles from "./index.module.scss";
 import classNames from "classnames/bind";
 import { IconSizeTypes } from "../../../types";
 import { useDispatch } from "react-redux";
 import { addQuestion } from "../../../features/form";
+import { useWindowResize } from "../../../hooks";
 
 const cx = classNames.bind(styles);
 
@@ -19,22 +20,14 @@ const ActionBar = memo(() => {
     dispatch(addQuestion());
   };
 
-  useLayoutEffect(() => {
-    const handleWindowResize = () => {
-      if (window.innerWidth >= 951) {
-        setIconSize("medium");
-      } else {
-        setIconSize("large");
-      }
-    };
-
-    handleWindowResize();
-    window.addEventListener("resize", handleWindowResize);
-
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
+  const onWindowResize = useCallback(() => {
+    if (window.innerWidth >= 951) {
+      setIconSize("medium");
+    } else {
+      setIconSize("large");
+    }
   }, []);
+  useWindowResize(onWindowResize);
 
   return (
     <div className={cx("container")}>
