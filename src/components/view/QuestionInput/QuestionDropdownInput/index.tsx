@@ -54,19 +54,19 @@ const QuestionDropdownInput = memo(({ options, answer, onAnswerChange, onAnswerR
       </div>
       {isOpen && (
         <ul className={cx("options")} style={{ top: optionsTop }}>
-          <li className={cx("reset", { current: !answer })} onClick={handleResetClick}>
+          <button className={cx("reset", { current: !answer })} onClick={handleResetClick}>
             <p className={cx("resetText")}>선택</p>
-          </li>
+          </button>
           <div className={cx("separator")} />
           {options.map((option) => {
             return (
-              <li
+              <button
                 key={option.id}
                 className={cx("option", { current: answer && answer.id === option.id })}
                 onClick={() => handleOptionClick(option)}
               >
                 <p className={cx("optionText")}>{option.value}</p>
-              </li>
+              </button>
             );
           })}
         </ul>
