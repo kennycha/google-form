@@ -43,13 +43,11 @@ const Header = memo(() => {
             <button className={cx("preview")} onClick={onPreviewButtonClick}>
               <Icon type={"eye"} />
             </button>
-            {/* 아래 요소는 구현 외 요소라 기능은 구현하지 않습니다.  */}
             <button className={cx("profile")}>
               <p className={cx("profileText")}>영부</p>
             </button>
           </div>
           <div className={cx("title")}>{formTitle}</div>
-          {/* 아래 영역은 구현 외 영역이라 기능은 구현하지 않습니다.  */}
           <div className={cx("tabs")}>
             <div className={cx("tab", { current: true })}>
               <p className={cx("tabText")}>질문</p>

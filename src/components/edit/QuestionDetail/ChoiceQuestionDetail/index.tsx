@@ -79,7 +79,6 @@ const ChoiceQuestionDetail = memo(({ id: questionId, options, current }: ChoiceQ
                   <div className={cx("underline", { focus: option.id === currentOptionId, duplicated })} />
                 </div>
                 {duplicated && <Icon type="alert" />}
-                {/* 아래 영역은 구현 외 영역이라 기능은 구현하지 않습니다.  */}
                 <button className={cx("uploadButton", { focus: option.id === currentOptionId })}>
                   <Icon type="image" />
                 </button>

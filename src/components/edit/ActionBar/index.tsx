@@ -42,7 +42,6 @@ const ActionBar = memo(() => {
         <button className={cx("addButton")} onClick={handleAddButtonClick}>
           <Icon type="add" size={iconSize} />
         </button>
-        {/* 아래 영역은 구현 외 영역이라 기능은 구현하지 않습니다.  */}
         {OTHER_ICON_TYPES.map((iconType) => (
           <button className={cx("unusedButton")} key={iconType}>
             <Icon type={iconType} size={iconSize} />

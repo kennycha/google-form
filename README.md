@@ -1,6 +1,6 @@
-# 과제 1: Google Form
+# Google Form
 
-- 패키지 설치 및 실행 방법은 아래와 같습니다. (현재 위치 assignments/google-form 기준)
+- 패키지 설치 및 실행 방법은 아래와 같습니다.
 
   1. 패키지를 설치합니다.
 

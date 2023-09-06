@@ -58,7 +58,6 @@ const ViewForm = memo(() => {
           <p className={cx("formDescription")}>{formDescription}</p>
         </div>
         <div className={cx("separator")} />
-        {/* 아래 영역은 구현 외 영역이라 기능은 구현하지 않습니다.  */}
         <div className={cx("user")}>
           <div className={cx("account")}>
             <p className={cx("accountText")}>dudqn136@naver.com</p>

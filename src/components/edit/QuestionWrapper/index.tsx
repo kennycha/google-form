@@ -79,7 +79,6 @@ const QuestionWrapper = memo(
           </div>
           {current && (
             <>
-              {/* 아래 요소는 구현 외 요소라 기능은 구현하지 않습니다.  */}
               <div className={cx("imageButtonWrapper")}>
                 <button className={cx("imageButton")}>
                   <Icon type="image" />
@@ -113,7 +112,6 @@ const QuestionWrapper = memo(
                   </div>
                 </div>
               </div>
-              {/* 아래 요소는 구현 외 요소라 기능은 구현하지 않습니다.  */}
               <button className={cx("moreButton")}>
                 <Icon type="more" />
               </button>
