@@ -43,9 +43,9 @@ const Header = memo(() => {
             <button className={cx("preview")} onClick={onPreviewButtonClick}>
               <Icon type={"eye"} />
             </button>
-            <button className={cx("profile")}>
+            <a className={cx("profile")} href="https://github.com/kennycha/google-form" target="_blank">
               <p className={cx("profileText")}>영부</p>
-            </button>
+            </a>
           </div>
           <div className={cx("title")}>{formTitle}</div>
           <div className={cx("tabs")}>
